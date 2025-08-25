@@ -1,0 +1,19 @@
+@reference "tailwindcss/theme";
+
+
+.homePage {
+  background-image: url(/images/accent.svg);
+  background-repeat: no-repeat;
+}
+
+.homePage h1 {
+  @apply text-6xl font-bold my-3;
+}
+
+.homePage .statNumber {
+  @apply text-4xl font-bold;
+}
+
+.donateButton {
+  @apply bg-yellow-400 rounded-3xl lg:max-w-max border-yellow-400 flex flex-col items-center border-4 px-16 py-3 font-bold
+}
