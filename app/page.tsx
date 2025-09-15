@@ -8,7 +8,22 @@ const microphoneSrc = "/homepage_gallery/girl-holding-bean.webp";
 const decalSrc = "/homepage_gallery/b-decal@2x.webp";
 const hilariousSrc = "/homepage_gallery/nepalese_kids_laughing.jpg";
 
-const donateTodayButtonStyle = "bg-yellow-400 rounded-3xl lg:max-w-max border-yellow-400 flex flex-col items-center border-4 px-16 py-3 font-bold";
+const donateTodayButtonStyle = "bg-gray-200 rounded-3xl lg:max-w-max flex flex-col items-center px-4 py-3 font-bold";
+
+const heroHeader = "Consume Consciously";
+const heroDescription = "CL3EAN connects conscious consumer to certified business built on shared ID3AIS for a better world.";
+const heroTagline = "Making it effortless to support whats right.";
+const NoDonationsLabel = "*CLE3AN does not profit or recieve any comission from donations supported by CL3AN.";
+
+function DonationsLabel() {
+    return (
+        <div className="flex items-center gap-4">
+            <div className={donateTodayButtonStyle}>
+                {NoDonationsLabel}
+            </div>
+        </div>
+    );
+}
 
 function HeroStatsLargeScreen() {
     return (
@@ -16,22 +31,18 @@ function HeroStatsLargeScreen() {
             {/*LEFT HERO*/}
             <div className="col-span-6 hidden lg:flex">
                 <div className="flex-col-stack-3 mx-auto w-80 ">
-                    <h1 data-testid="hero-header " className="text-6xl font-bold my-3">Make Business a Force For Good</h1>
+                    <h1 data-testid="hero-header " className="text-6xl font-bold my-3">{heroHeader}</h1>
                     <p className="my-4">
-                        Cleaned Certification is the trusted authority recognizing businesses that prioritize people, communities, and the planet.
+                        {heroDescription}
                     </p>
-                    <p className="font-bold my-4">{"We won't stop until all business is a force for good."}</p>
-                    <a type="button"
-                        className={donateTodayButtonStyle}
-                        target="_blank" href="https://donate.bcorporation.net/give/333999/#!/donation/checkout">
-                        Donate today
-                    </a>
+                    <p className="font-bold my-4">{heroTagline}</p>
+                    <DonationsLabel />
                 </div>
             </div>
 
             {/* RIGHT GRID GALLERY*/}
             <div className="col-span-6 hidden lg:flex">
-                <div className="flex-row-gutter-3">
+                <div className="flex-row-gutter-2">
                     <div className="flex-col-stack-3">
                         <Image
                             alt=""
@@ -337,7 +348,7 @@ function HeroMobile() {
     return (
         <div className="grid grid-cols-6 gap-8 lg:grid-cols-12 col-span-full lg:hidden">
             <h1 className="col-span-full text-center" data-testid="hero-header">
-                Make Ethics the Standard in Business
+                {heroHeader}
             </h1>
             <div className="flex-col-stack-2 col-span-full">
                 <SmallStatsGallery />
@@ -346,19 +357,13 @@ function HeroMobile() {
                 <div className="my-10">
 
                     <p className="text-center my-5">
-                        {`Cleaned Certification is the trusted authority recognizing businesses that prioritize people, communities, and the planet.
+                        {`${heroDescription}
                         We won't stop until every business meets the standard for doing good.`}
                     </p>
                     <p className="text-center font-bold my-5">
-                        {"We won't stop until all business is a force for good."}
+                        {heroTagline}
                     </p>
-                    <a
-                        className={donateTodayButtonStyle}
-                        href="https://donate.bcorporation.net/give/333999/#!/donation/checkout"
-                        target="_blank"
-                        type="button">
-                        Donate today
-                    </a>
+                    <DonationsLabel />
                 </div>
             </div>
         </div>
