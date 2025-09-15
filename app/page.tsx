@@ -143,7 +143,7 @@ function HeroStatsLargeScreen() {
     )
 }
 
-function HeroStats() {
+function HeroMobile() {
     const SmallStatsGallery = () => (
         <div className="flex md:hidden">
             <div className="flex-row-gutter-3">
@@ -374,7 +374,7 @@ export default function Home() {
             <main className="flex-col-stack-6 container mx-auto max-h-full p-4">
                 <div className="grid grid-cols-6 gap-8 lg:grid-cols-12">
                     <HeroStatsLargeScreen />
-                    <HeroStats />
+                    <HeroMobile />
                     <div className="col-span-full flex flex-col items-center">
                         <h2 className="text-3xl font-bold py-10">Learn more about our mission</h2>
                         <div className="m-auto h-full w-4/5">
