@@ -19,7 +19,7 @@ export default function Nav() {
 
     return (
         <div className="sticky top-0 bg-white shadow shadow-gray-200 z-50">
-            <div className="mx-auto container px-4 flex justify-between">
+            <div className="mx-auto container px-4 flex">
                 <div className="flex max-w-xl items-center">
                     {/* Logo */}
                     <Link href="/" className="mr-4">
@@ -41,23 +41,10 @@ export default function Nav() {
                             ))}
                         </nav>
 
-                        {/* Empty div for mobile to push burger menu to the right */}
-                        <div className="lg:hidden"></div>
-
-                        {/* Mobile Burger Menu Button */}
-                        <button
-                            className="lg:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
-                            onClick={toggleMenu}
-                            aria-label="Toggle menu"
-                        >
-                            <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                            <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                            <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-                        </button>
                     </div>
                 </div>
 
-                <Link href="/companies" className="mr-4">
+                <Link href="/companies" className="mr-4 ml-6">
                     <div className="flex flex-col">
                         <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
                         <span className="ml-3 text-2xl font-semibold">Directory</span>
@@ -65,6 +52,22 @@ export default function Nav() {
                 </Link>
                 {/* Invisible spacer to balance the left side */}
                 <div className="w-[10px]"></div>
+
+                <div className="flex grow justify-end items-center space-x-4">
+                    {/* Empty div for mobile to push burger menu to the right */}
+                    <div className="lg:hidden"></div>
+
+                    {/* Mobile Burger Menu Button */}
+                    <button
+                        className="lg:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
+                        onClick={toggleMenu}
+                        aria-label="Toggle menu"
+                    >
+                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Menu */}

@@ -4,32 +4,11 @@ import { AiFillTwitterSquare, AiFillFacebook, AiFillLinkedin, AiFillYoutube, AiF
 export default function Footer() {
     const footerSections = [
         {
-            title: "The Movement",
+            title: "About CLE3AN",
             links: [
-                "Building the Movement",
-                "About B Lab",
-                "Support Our Work",
-                "Global Network"
+                "Contact Us"
             ]
         },
-        {
-            title: "Standards",
-            links: [
-                "Building the Movement",
-                "Clean standards",
-                "Support Our Work",
-                "Global Network"
-            ]
-        },
-        // {
-        //     title: "Programs & Tools",
-        //     links: [
-        //         "Building the Movement",
-        //         "About B Lab",
-        //         "Support Our Work",
-        //         "Global Network"
-        //     ]
-        // }
     ];
 
     return (

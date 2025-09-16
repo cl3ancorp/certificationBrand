@@ -161,7 +161,7 @@ export default function Companies() {
       <div className="bg-gray-100 px-4 py-8">
         <div className='container mx-auto'>
 
-          <h1 className="text-3xl font-bold mb-8">Certified Company Directory</h1>
+          <h1 className="text-3xl font-bold mb-8">Find a CL3AN near you!</h1>
 
           {/* Filters */}
           <div className="bg-white p-6 rounded-lg shadow-md mb-8">
@@ -234,7 +234,7 @@ export default function Companies() {
                 Clear All Filters
               </button>
               <span className="text-sm text-gray-600">
-                {totalCount} companies found
+                showing {totalCount} companies
               </span>
             </div>
           </div>
