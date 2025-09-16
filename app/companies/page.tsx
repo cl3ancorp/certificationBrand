@@ -33,7 +33,7 @@ export default function Companies() {
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalCount, setTotalCount] = useState<number>(0)
-  const itemsPerPage = 12
+  const itemsPerPage = 10
 
   // Fetch companies with filters
   const fetchCompanies = async () => {
@@ -166,7 +166,7 @@ export default function Companies() {
       <div className="bg-gray-100 px-4 py-8">
         <div className='container mx-auto'>
 
-          <h1 className="text-3xl font-bold mb-8">Find a CL3AN near you!</h1>
+          <h1 className="text-3xl font-bold mb-8 text-center">Find a CL3AN near you!</h1>
 
           {/* Filters */}
           <div className="bg-white p-6 rounded-lg shadow-md mb-8">
@@ -239,7 +239,7 @@ export default function Companies() {
                 Clear All Filters
               </button>
               <span className="text-sm text-gray-600">
-                showing {totalCount} companies
+                showing {companies.length} out of {totalCount} companies 
               </span>
             </div>
           </div>
@@ -252,9 +252,9 @@ export default function Companies() {
             </div>
           )}
 
-          {/* Companies Grid */}
+          {/* Companies List */}
           {!loading && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="flex flex-col gap-6">
               {companies.map((company: Company) => (
                 <Link
                   key={company.id}
@@ -375,8 +375,8 @@ export default function Companies() {
           )}
         </div>
       </div>
-      <div className="mt-12 text-s mx-auto container text-gray-600">
-        The information provided on this website is for your information only, and does not constitute investment, legal, tax, or accounting advice. Nothing contained on this website constitutes a recommendation or endorsement to buy or sell any securities or other financial instruments of Certified B Corps nor is it intended to inform investment decisions.
+      <div className="mt-12 text-s mx-auto container font-bold text-gray-600">
+        *The information provided on this website is for your information only, and does not constitute investment, legal, tax, or accounting advice. Nothing contained on this website constitutes a recommendation or endorsement to buy or sell any securities or other financial instruments of Certified B Corps nor is it intended to inform investment decisions.
       </div>
     </>
   )
