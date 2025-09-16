@@ -134,6 +134,11 @@ export default function Companies() {
     return () => clearTimeout(timer);
   }, [searchTerm, selectedIndustry, selectedSize, selectedLocation])
 
+  // Effect for currentPage changes
+  useEffect(() => {
+    fetchCompanies();
+  }, [currentPage])
+
   // Clear all filters
   const clearFilters = () => {
     setSearchTerm('')
@@ -359,6 +364,7 @@ export default function Companies() {
 
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  // onClick={() => setCurrentPage(2)}
                   disabled={currentPage === totalPages}
                   className="px-3 py-2 border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                 >
