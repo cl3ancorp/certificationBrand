@@ -6,88 +6,27 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CheckCircle, Building2, Users, MapPin, Briefcase, Send, Check, ChevronsUpDown } from 'lucide-react';
+import { CheckCircle, Building2, Users, Send } from 'lucide-react';
+import Image from 'next/image';
 
-const industries = [
-  'Agriculture, forestry & fishing',
-  'Construction',
-  'Energy, Heating & Cooling',
-  'Manufactured Goods',
-  'Mining & Quarrying',
-  'Waste Management & Recycling',
-  'Water & Sewerage',
-  'Accommodation & food service',
-  'Administrative & support services',
-  'Arts, entertainment & recreation',
-  'Education',
-  'Energy',
-  'Financial & insurance activities',
-  'Human health & social work',
-  'Information, communication & technology',
-  'Other services',
-  'Professional & technical services',
-  'Publishing - Print',
-  'Real estate, design & building',
-  'Rental & Repair',
-  'Transportation & storage',
-  'Retail',
-  'Wholesale'
-];
-
-const companySizes = [
-  { value: '0', label: 'Just me (0 employees)' },
-  { value: '1-9', label: 'Small (1-9 employees)' },
-  { value: '10-49', label: 'Medium (10-49 employees)' },
-  { value: '50-249', label: 'Large (50-249 employees)' },
-  { value: '250-999', label: 'Enterprise (250-999 employees)' },
-  { value: '1000+', label: 'Corporation (1000+ employees)' }
-];
-
-const ownershipTypes = [
-  { id: 'black', label: 'Black-owned business' },
-  { id: 'employee', label: 'Employee-owned business' },
-  { id: 'immigrant', label: 'Immigrant-owned business' },
-  { id: 'indigenous', label: 'Indigenous-owned business' }
-];
+const logoSrc = "/images/branding/Logotipo-Cl3an-03.png";
+const logoAlt = "cl3an logo"
 
 export default function BecomeCleanCertified() {
   const [formData, setFormData] = useState({
-    // Contact Information
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     phone: '',
-    
-    // Business Information
-    businessName: '',
-    businessDescription: '',
+    entityName: '',
+    description: '',
     website: '',
-    
-    // Location
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    country: '',
-    
-    // Business Details
-    industry: '',
-    companySize: '',
-    ownership: [] as string[],
-    
-    // Additional Information
+    location: '',
     additionalInfo: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [industryOpen, setIndustryOpen] = useState(false);
 
   const handleInputChange = (e:any) => {
     const { name, value } = e.target;
@@ -97,53 +36,59 @@ export default function BecomeCleanCertified() {
     }));
   };
 
-  const handleOwnershipChange = (ownershipId:any, checked:any) => {
-    setFormData(prev => ({
-      ...prev,
-      ownership: checked 
-        ? [...prev.ownership, ownershipId]
-        : prev.ownership.filter(id => id !== ownershipId)
-    }));
-  };
 
-  const handleSelectChange = (name:any, value:any) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const handleSubmit = async () => {
+    const requiredFields = ['name', 'email', 'phone', 'entityName', 'description'];
 
-  const handleSubmit = () => {
+    // Check if all required fields are filled
+    const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]?.trim());
+
+    if (missingFields.length > 0) {
+      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
+      return;
+    }
+
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setShowSuccess(true);
-      
-      // Reset form
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        businessName: '',
-        businessDescription: '',
-        website: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        country: '',
-        industry: '',
-        companySize: '',
-        ownership: [],
-        additionalInfo: ''
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ formData }),
       });
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => setShowSuccess(false), 5000);
-    }, 2000);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setShowSuccess(true);
+
+        // Reset form
+        // setFormData({
+        //   name: '',
+        //   email: '',
+        //   phone: '',
+        //   entityName: '',
+        //   description: '',
+        //   website: '',
+        //   location: '',
+        //   additionalInfo: ''
+        // });
+
+        // Hide success message after 5 seconds
+        setTimeout(() => setShowSuccess(false), 5000);
+        alert("Sucessfully sent email")
+      } else {
+        console.error('Failed to send email:', result.error);
+        alert('Failed to submit application. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to submit application. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -152,13 +97,11 @@ export default function BecomeCleanCertified() {
         {/* Header Section */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
-            <div className="bg-green-100 p-3 rounded-full">
-              <CheckCircle className="w-8 h-8 text-green-600" />
-            </div>
+             <Image height={150} width={150} alt={logoAlt} src={logoSrc}/>
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Become Clean Certified</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Join our network of certified clean businesses and showcase your commitment to environmental responsibility and sustainable practices.
+            Join our network of certified sources
           </p>
         </div>
 
@@ -175,9 +118,9 @@ export default function BecomeCleanCertified() {
         {/* Main Form */}
         <Card className="shadow-xl border-0 py-0">
           <CardHeader className="bg-green-700 py-6 text-white rounded-t-lg">
-            <CardTitle className="text-2xl">Certification Application</CardTitle>
+            <CardTitle className="text-2xl">Fill out Required Fields*</CardTitle>
             <CardDescription className="text-green-100">
-              Please fill out all required fields to begin your certification process.
+              And a team member will contact you soon.
             </CardDescription>
           </CardHeader>
           
@@ -190,50 +133,37 @@ export default function BecomeCleanCertified() {
                   <Users className="w-5 h-5 text-blue-600 mr-2" />
                   <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
                 </div>
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name *</Label>
+                    <Label htmlFor="name">Name *</Label>
                     <Input
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
+                      id="name"
+                      name="name"
+                      value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="Enter your first name"
+                      placeholder="Enter your name"
                       required
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name *</Label>
-                    <Input
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      placeholder="Enter your last name"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="email">Email *</Label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="Enter your email address"
+                      placeholder="Enter your email"
                       required
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phone">Phone Number *</Label>
                     <Input
                       id="phone"
                       name="phone"
@@ -241,6 +171,7 @@ export default function BecomeCleanCertified() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="Enter your phone number"
+                      required
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
                     />
                   </div>
@@ -253,37 +184,37 @@ export default function BecomeCleanCertified() {
               <div>
                 <div className="flex items-center mb-6">
                   <Building2 className="w-5 h-5 text-green-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-gray-900">Business Information</h3>
+                  <h3 className="text-xl font-semibold text-gray-900">Source Information</h3>
                 </div>
-                
+
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="businessName">Business Name *</Label>
+                    <Label htmlFor="entityName">Entity Name *</Label>
                     <Input
-                      id="businessName"
-                      name="businessName"
-                      value={formData.businessName}
+                      id="entityName"
+                      name="entityName"
+                      value={formData.entityName}
                       onChange={handleInputChange}
-                      placeholder="Enter your business name"
+                      placeholder="Enter your entity name"
                       required
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
-                    <Label htmlFor="businessDescription">Business Description *</Label>
+                    <Label htmlFor="description">Description *</Label>
                     <Textarea
-                      id="businessDescription"
-                      name="businessDescription"
-                      value={formData.businessDescription}
+                      id="description"
+                      name="description"
+                      value={formData.description}
                       onChange={handleInputChange}
-                      placeholder="Briefly describe your business and services"
+                      placeholder="Briefly describe your business"
                       required
                       rows={4}
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500 resize-none"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="website">Website</Label>
                     <Input
@@ -296,173 +227,17 @@ export default function BecomeCleanCertified() {
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
                     />
                   </div>
-                </div>
-              </div>
 
-              <Separator />
-
-              {/* Location Section */}
-              <div>
-                <div className="flex items-center mb-6">
-                  <MapPin className="w-5 h-5 text-purple-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-gray-900">Business Location</h3>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="md:col-span-2 space-y-2">
-                    <Label htmlFor="address">Street Address *</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="location">Location</Label>
                     <Input
-                      id="address"
-                      name="address"
-                      value={formData.address}
+                      id="location"
+                      name="location"
+                      value={formData.location}
                       onChange={handleInputChange}
-                      placeholder="Enter your business address"
-                      required
+                      placeholder="Enter your business location"
                       className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
                     />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="city">City *</Label>
-                    <Input
-                      id="city"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      placeholder="Enter city"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="state">State/Province *</Label>
-                    <Input
-                      id="state"
-                      name="state"
-                      value={formData.state}
-                      onChange={handleInputChange}
-                      placeholder="Enter state or province"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="zipCode">ZIP/Postal Code *</Label>
-                    <Input
-                      id="zipCode"
-                      name="zipCode"
-                      value={formData.zipCode}
-                      onChange={handleInputChange}
-                      placeholder="Enter ZIP or postal code"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="country">Country *</Label>
-                    <Input
-                      id="country"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleInputChange}
-                      placeholder="Enter country"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Business Details Section */}
-              <div>
-                <div className="flex items-center mb-6">
-                  <Briefcase className="w-5 h-5 text-orange-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-gray-900">Business Details</h3>
-                </div>
-                
-                <div className="space-y-6">
-                  {/* Industry Selection */}
-                  <div className="space-y-2">
-                    <Label>Industry *</Label>
-                    <Popover open={industryOpen} onOpenChange={setIndustryOpen}>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          aria-expanded={industryOpen}
-                          className="w-full justify-between text-left"
-                        >
-                          {formData.industry ? formData.industry : "Select your industry..."}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-0">
-                        <Command>
-                          <CommandInput placeholder="Search industries..." />
-                          <CommandEmpty>No industry found.</CommandEmpty>
-                          <CommandGroup className="max-h-64 overflow-auto">
-                            {industries.map((industry) => (
-                              <CommandItem
-                                key={industry}
-                                value={industry}
-                                onSelect={() => {
-                                  handleSelectChange('industry', industry);
-                                  setIndustryOpen(false);
-                                }}
-                              >
-                                <Check
-                                  className={`mr-2 h-4 w-4 ${
-                                    formData.industry === industry ? "opacity-100" : "opacity-0"
-                                  }`}
-                                />
-                                {industry}
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-
-                  {/* Company Size */}
-                  <div className="space-y-2">
-                    <Label>Company Size *</Label>
-                    <Select value={formData.companySize} onValueChange={(value) => handleSelectChange('companySize', value)}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select company size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {companySizes.map((size) => (
-                          <SelectItem key={size.value} value={size.value}>
-                            {size.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Ownership Demographics */}
-                  <div className="space-y-4">
-                    <Label>Ownership Demographics (Select all that apply)</Label>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {ownershipTypes.map((type) => (
-                        <div key={type.id} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={type.id}
-                            checked={formData.ownership.includes(type.id)}
-                            onCheckedChange={(checked) => handleOwnershipChange(type.id, checked)}
-                          />
-                          <Label htmlFor={type.id} className="text-sm font-normal cursor-pointer">
-                            {type.label}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </div>
