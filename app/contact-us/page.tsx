@@ -33,17 +33,47 @@ export default function Page() {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
+
+    const requiredFields = ['name', 'email', 'subject', 'message'];
+
+    // Check if all required fields are filled
+    const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]?.trim());
+
+    if (missingFields.length > 0) {
+      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
+      return;
+    }
+
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
+
+    try {
+      const response = await fetch('/api/email-contact-us', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ formData }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setShowSuccess(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+
+        // Hide success message after 5 seconds
+        setTimeout(() => setShowSuccess(false), 5000);
+        alert("Successfully sent message");
+      } else {
+        console.error('Failed to send email:', result.error);
+        alert('Failed to submit message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to submit message. Please try again.');
+    } finally {
       setIsSubmitting(false);
-      setShowSuccess(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => setShowSuccess(false), 5000);
-    }, 1500);
+    }
   };
 
   return (
@@ -69,7 +99,7 @@ export default function Page() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Contact Form */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <Card className="shadow-lg border-0">
               <CardHeader>
                 <CardTitle className="text-2xl text-gray-900">Send us a Message</CardTitle>
@@ -157,112 +187,7 @@ export default function Page() {
               </CardContent>
             </Card>
           </div>
-
-          {/* Contact Information */}
-          <div className="space-y-6">
-            {/* Contact Details Card */}
-            <Card className="shadow-lg border-0">
-              <CardHeader>
-                <CardTitle className="text-xl text-gray-900">Contact Information</CardTitle>
-                <CardDescription>
-                  Reach out to us through any of these channels.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-blue-100 p-2 rounded-lg">
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Address</h3>
-                    <p className="text-gray-600 text-sm">
-                      123 Clean Corp Street<br />
-                      Suite 100<br />
-                      City, State 12345
-                    </p>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <Phone className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                    <p className="text-gray-600 text-sm">+1 (555) 123-4567</p>
-                    <p className="text-gray-600 text-sm">+1 (555) 987-6543</p>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="flex items-start space-x-3">
-                  <div className="bg-purple-100 p-2 rounded-lg">
-                    <Mail className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600 text-sm">contact@cleancorp.com</p>
-                    <p className="text-gray-600 text-sm">support@cleancorp.com</p>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="flex items-start space-x-3">
-                  <div className="bg-orange-100 p-2 rounded-lg">
-                    <Clock className="w-5 h-5 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Business Hours</h3>
-                    <p className="text-gray-600 text-sm">
-                      Monday - Friday: 9:00 AM - 6:00 PM<br />
-                      Saturday: 10:00 AM - 4:00 PM<br />
-                      Sunday: Closed
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-          </div>
         </div>
-
-        {/* FAQ Section */}
-        <Card className="mt-12 shadow-lg border-0">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-gray-900">Frequently Asked Questions</CardTitle>
-            <CardDescription>
-              Quick answers to common questions before you reach out.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">How quickly do you respond?</h4>
-                  <p className="text-gray-600 text-sm">We typically respond to all inquiries within 24 hours during business days.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">What services do you offer?</h4>
-                  <p className="text-gray-600 text-sm">We provide comprehensive cleaning certification and corporate cleaning services.</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Do you offer emergency support?</h4>
-                  <p className="text-gray-600 text-sm">Yes, we provide 24/7 emergency support for urgent cleaning situations.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">How can I get a quote?</h4>
-                  <p className="text-gray-600 text-sm">Simply fill out the contact form above or call us directly for a personalized quote.</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
