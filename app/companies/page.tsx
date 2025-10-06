@@ -2,6 +2,7 @@
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 // Define TypeScript interface based on your schema
 interface Company {
@@ -166,7 +167,18 @@ export default function Companies() {
       <div className="bg-gray-100 px-4 py-8">
         <div className='container mx-auto'>
 
-          <h1 className="text-3xl font-bold mb-8 text-center">Find a CL3AN near you!</h1>
+          {/* <h1 className="text-3xl font-bold mb-8 text-center">Find a CL3AN near you!</h1> */}
+
+          {/* Logo and tagline */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <Image
+              src="/images/branding/Logotipo-Cl3an-03.png"
+              alt="CL3AN Logo"
+              width={140}
+              height={100}
+            />
+            <p className="text-4xl text-black font-medium tracking-tight">A Network of Sources worth Supporting</p>
+          </div>
 
           {/* Filters */}
           <div className="bg-white p-6 rounded-lg shadow-md mb-8">
