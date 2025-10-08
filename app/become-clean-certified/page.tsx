@@ -117,7 +117,7 @@ export default function BecomeCleanCertified() {
 
         {/* Main Form */}
         <Card className="shadow-xl border-0 py-0">
-          <CardHeader className="bg-green-700 py-6 text-white rounded-t-lg">
+          <CardHeader className="py-6 text-white rounded-t-lg" style={{backgroundColor:"#14464c"}}>
             <CardTitle className="text-2xl">Fill out Required Fields*</CardTitle>
             <CardDescription className="text-green-100">
               And a team member will contact you soon.

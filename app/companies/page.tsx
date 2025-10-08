@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import CompanyCard from './CompanyCard'
 
 // Define TypeScript interface based on your schema
 interface Company {
@@ -13,6 +14,7 @@ interface Company {
   size: string | null
   industry: string | null
   operates_in: string[] | null
+  img_url: string | null
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -177,7 +179,10 @@ export default function Companies() {
               width={140}
               height={100}
             />
-            <p className="text-4xl text-black font-medium tracking-tight">A Network of Sources worth Supporting</p>
+            <div>
+              <p className="text-4xl text-brand-primary font-semibold tracking-tight">A Network of Sources</p>
+              <p className="text-4xl text-brand-primary font-semibold tracking-tight ml-3">Worth Supporting</p>
+            </div>
           </div>
 
           {/* Filters */}
@@ -268,65 +273,7 @@ export default function Companies() {
           {!loading && (
             <div className="flex flex-col gap-6">
               {companies.map((company: Company) => (
-                <Link
-                  key={company.id}
-                  href={`/company?id=${company.id}`}
-                  className="block bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer group"
-                >
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors">
-                    {company.name || 'Unnamed Company'}
-                  </h3>
-
-                  <p className="text-gray-600 mb-3 line-clamp-3">
-                    {company.description || 'No description available'}
-                  </p>
-
-                  <div className="space-y-2 text-sm">
-                    {company.industry && (
-                      <div className="flex items-center">
-                        <span className="font-medium">Industry:</span>
-                        <span className="ml-2 text-gray-600">{company.industry}</span>
-                      </div>
-                    )}
-
-                    {company.size && (
-                      <div className="flex items-center">
-                        <span className="font-medium">Size:</span>
-                        <span className="ml-2 text-gray-600">{company.size}</span>
-                      </div>
-                    )}
-
-                    {company.operates_in && company.operates_in.length > 0 && (
-                      <div className="flex items-start">
-                        <span className="font-medium">Operates in:</span>
-                        <div className="ml-2 text-gray-600">
-                          <div className="flex flex-wrap gap-1">
-                            {company.operates_in.slice(0, 3).map((location: string, index: number) => (
-                              <span
-                                key={index}
-                                className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
-                              >
-                                {location}
-                              </span>
-                            ))}
-                            {company.operates_in.length > 3 && (
-                              <span className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                                +{company.operates_in.length - 3} more
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* View Details indicator */}
-                  <div className="mt-4 pt-3 border-t border-gray-100">
-                    <span className="text-blue-600 text-sm font-medium group-hover:underline">
-                      View Details →
-                    </span>
-                  </div>
-                </Link>
+                <CompanyCard key={company.id} company={company} />
               ))}
             </div>
           )}
