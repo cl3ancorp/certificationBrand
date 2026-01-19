@@ -1,91 +1,75 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-
-const navList = [
-    // { title: "Find a Clean Corp", url: "/companies" },
-    { title: "Become Clean Certified", url: "/become-clean-certified" },
-    { title: "About Us", url: "/about-us" },
-    { title: "Contact Us", url: "/contact-us" },
-];
+import Link from 'next/link';
+import { Menu } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 export default function Nav() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  const navLinks = [
+    { href: '/become-clean-certified', label: 'Become Clean Certified' },
+    // { href: '/companies', label: 'CL3AN Directory' },
+    { href: '/about-us', label: 'About Us' },
+    { href: '/contact-us', label: 'Contact Us' },
+  ];
 
-    return (
-        <div className="sticky top-0 bg-white shadow shadow-gray-200 z-50">
-            <div className="mx-auto container px-4 flex">
-                <div className="flex max-w-xl items-center">
-                    {/* Logo */}
-                    <Link href="/" className="mr-4">
-                        <img className="w-auto h-13" src={"/images/branding/Logotipo-Cl3an-12.png"} alt="Clean Corp Logo" />
-                    </Link>
-
-                    {/* Navigation and Actions Container */}
-                    <div className="flex items-center justify-between flex-1">
-                        {/* Desktop Navigation */}
-                        <nav className="hidden lg:flex items-center space-x-4">
-                            {navList.map((item, index) => (
-                                <Link
-                                    key={index}
-                                    href={item.url}
-                                    className="py-6 font-bold text-sm hover:text-gray-600 transition-colors"
-                                >
-                                    {item.title}
-                                </Link>
-                            ))}
-                        </nav>
-
-                    </div>
-                </div>
-
-                <Link href="/companies" className="mr-4 ml-6">
-                    <div className="flex flex-col">
-                        <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
-                        <span className="ml-3 text-2xl font-semibold">Directory</span>
-                    </div>
-                </Link>
-                {/* Invisible spacer to balance the left side */}
-                <div className="w-[10px]"></div>
-
-                <div className="flex grow justify-end items-center space-x-4">
-                    {/* Empty div for mobile to push burger menu to the right */}
-                    <div className="lg:hidden"></div>
-
-                    {/* Mobile Burger Menu Button */}
-                    <button
-                        className="lg:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
-                        onClick={toggleMenu}
-                        aria-label="Toggle menu"
-                    >
-                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu */}
-            <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-                <div className="px-4 py-4 space-y-2">
-                    {navList.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.url}
-                            className="block py-3 font-bold text-sm hover:text-gray-600 transition-colors border-b border-gray-100 last:border-b-0"
-                            onClick={() => setIsMenuOpen(false)}
+  return (
+    <nav className="bg-white border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+        
+          <div className="flex">
+            <Link href="/" className="mr-2">
+                <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-12.png"} alt="Clean Corp Logo" />
+            </Link>
+            {/* Hamburger Menu Dropdown */}
+            <DropdownMenu>
+                <DropdownMenuTrigger className="p-2 hover:bg-gray-100 rounded-md transition-colors">
+                <Menu className="w-6 h-6 text-gray-700" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-56">
+                {navLinks.map((link) => (
+                    <DropdownMenuItem key={link.href} asChild>
+                    <Link href={link.href}>
+                        <div
+                        className={`w-full cursor-pointer 'text-gray-700'`}
+                        style={{ fontSize: '15px', fontWeight: 500 }}
                         >
-                            {item.title}
-                        </Link>
-                    ))}
+                        {link.label}
+                        </div>
+                    </Link>
+                    </DropdownMenuItem>
+                ))}
+                </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
-                </div>
+          {/* Logo */}
+          <Link href="/">
+            <div className="flex items-center text-center gap-3 hover:opacity-80 transition-opacity">
+              <div>
+                <Link href="/" className="mr-4">
+                    <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
+                </Link>
+                <Link href={"/companies"}><div className="text-gray-600" style={{ fontSize: '14px', lineHeight: 1.2 }}>Directory</div></Link>
+              </div>
             </div>
+          </Link>
+
+          {/* Log In Button, TBD */}
+          <button
+            className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            style={{ fontSize: '14px', fontWeight: 500 }}
+          >
+            Log In
+          </button>
         </div>
-    );
+      </div>
+    </nav>
+  );
 }
