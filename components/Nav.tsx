@@ -50,16 +50,14 @@ export default function Nav() {
           </div>
 
           {/* Logo */}
-          <Link href="/">
-            <div className="flex items-center text-center gap-3 hover:opacity-80 transition-opacity">
-              <div>
-                <Link href="/" className="mr-4">
-                    <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
-                </Link>
-                <Link href={"/companies"}><div className="text-gray-600" style={{ fontSize: '14px', lineHeight: 1.2 }}>Directory</div></Link>
-              </div>
+          <div className="flex items-center text-center gap-3 hover:opacity-80 transition-opacity">
+            <div>
+              <Link href="/" className="mr-4">
+                <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
+              </Link>
+              <Link href={"/companies"}><div className="text-gray-600" style={{ fontSize: '14px', lineHeight: 0 }}>Directory</div></Link>
             </div>
-          </Link>
+          </div>
 
           {/* Log In Button, TBD */}
           <button
