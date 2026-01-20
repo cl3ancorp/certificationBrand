@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -88,7 +87,7 @@ export default function Page() {
             Get in Touch
             </h1>
           <p className="max-w-2xl mx-auto" style={{ fontSize: '18px', opacity: 0.9 }}>
-            Have questions about certification? Want to learn more about CL3AN? We're here to help.
+            Have questions about certification? Want to learn more about CL3AN? We&apos;re here to help.
             </p>
         </div>
       </div>
@@ -112,9 +111,9 @@ export default function Page() {
             </h2>
             <form className="space-y-6">
               <div>
-                <label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
+                <Label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
                   Name
-                </label>
+                </Label>
                 <Input
                   className="bg-white transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                   id="name"
@@ -128,11 +127,11 @@ export default function Page() {
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
+                <Label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
                   Email
-                </label>
+                </Label>
                 <Input
-                  className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                  className="bg-white transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                   id="email"
                   name="email"
                   type="email"
@@ -144,9 +143,9 @@ export default function Page() {
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
+                <Label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
                   Company (Optional)
-                </label>
+                </Label>
                 <Input
                   className="bg-white transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                   id="source"
@@ -159,15 +158,15 @@ export default function Page() {
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
+                <Label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
                   Subject
-                </label>
+                </Label>
                 <Input
                   className="bg-white transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                   id="subject"
                   name="subject"
                   type="text"
-                  placeholder="Your Company Name"
+                  placeholder="What's this about?"
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
@@ -175,9 +174,9 @@ export default function Page() {
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
+                <Label className="block text-gray-700 mb-2" style={{ fontSize: '14px', fontWeight: 500 }}>
                   Message
-                </label>
+                </Label>
                 <Textarea
                   id="message"
                   name="message"
@@ -186,7 +185,7 @@ export default function Page() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="bg-white transition-all duration-200 focus:ring-2 focus:ring-blue-500 resize-none"
                 />
               </div>
               <Button
@@ -255,11 +254,13 @@ export default function Page() {
                 Ready to Get Started?
               </h3>
               <p className="mb-6" style={{ fontSize: '15px', opacity: 0.9 }}>
-                If you're interested in becoming CL3AN certified, start your application today.
+                If you&apos;re interested in becoming CL3AN certified, start your application today.
               </p>
-              <Link href={"/become-clean-certified"}><Button variant="secondary" className="bg-white text-[#2d5f5d] hover:bg-gray-100" style={{ fontSize: '16px' }} >
-                Begin Application
-              </Button></Link>
+              <Link href={"/become-clean-certified"}>
+                <Button variant="secondary" className="bg-white text-[#2d5f5d] hover:bg-gray-100" style={{ fontSize: '16px' }} >
+                  Begin Application
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
