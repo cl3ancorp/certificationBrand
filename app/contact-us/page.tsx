@@ -25,7 +25,6 @@ export default function Page() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleInputChange = (e:any) => {
-    console.log('EVENT:', e)
     const { name, value } = e.target;
     setFormData(formData => ({
       ...formData,
@@ -120,7 +119,7 @@ export default function Page() {
                   name="name"
                   type="text"
                   placeholder="Enter your full name"
-                  value={formData.name}
+                  value={formData?.name}
                   onChange={handleInputChange}
                   required
                   />
@@ -136,7 +135,7 @@ export default function Page() {
                   name="email"
                   type="email"
                   placeholder="Enter your email"
-                  value={formData.email}
+                  value={formData?.email}
                   onChange={handleInputChange}
                   required
                 />
@@ -152,7 +151,7 @@ export default function Page() {
                   name="source"
                   type="text"
                   placeholder="Your Company Name"
-                  value={formData.source}
+                  value={formData?.source}
                   onChange={handleInputChange}
                 />
               </div>
@@ -167,7 +166,7 @@ export default function Page() {
                   name="subject"
                   type="text"
                   placeholder="What's this about?"
-                  value={formData.subject}
+                  value={formData?.subject}
                   onChange={handleInputChange}
                   required
                 />
@@ -181,7 +180,7 @@ export default function Page() {
                   id="message"
                   name="message"
                   placeholder="Tell us more about your inquiry..."
-                  value={formData.message}
+                  value={formData?.message}
                   onChange={handleInputChange}
                   required
                   rows={6}
