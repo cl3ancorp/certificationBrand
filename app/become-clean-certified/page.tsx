@@ -92,160 +92,162 @@ export default function BecomeCleanCertified() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <div className="flex justify-center mb-4">
-             <Image height={150} width={150} alt={logoAlt} src={logoSrc}/>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Become Clean Certified</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Join our network of certified sources
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Section */}
+      <div className="bg-[#2d5f5d] text-center py-20">
+        <div className="flex justify-center mb-4">
+          <Image height={150} width={150} alt={logoAlt} src={logoSrc} />
         </div>
+        <h1 className="text-4xl font-bold text-white mb-4">Become CL3AN Certified</h1>
+        <p className="text-lg text-white max-w-2xl mx-auto">
+          Join our network of certified sources
+          </p>
+      </div>
 
-        {/* Success Alert */}
-        {showSuccess && (
-          <Alert className="mb-8 border-green-200 bg-green-50">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-800">
-              Application submitted successfully! We&apos;ll review your application and get back to you within 3-5 business days.
+      {/* Success Alert */}
+      {showSuccess && (
+        <Alert className="mb-8 border-green-200 bg-green-50">
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <AlertDescription className="text-green-800">
+            Application submitted successfully! We&apos;ll review your application and get back to you within 3-5 business days.
             </AlertDescription>
-          </Alert>
-        )}
+        </Alert>
+      )}
 
-        {/* Main Form */}
-        <Card className="shadow-xl border-0 py-0">
-          <CardHeader className="py-6 text-white rounded-t-lg" style={{backgroundColor:"#14464c"}}>
-            <CardTitle className="text-2xl">Fill out Required Fields*</CardTitle>
-            <CardDescription className="text-green-100">
-              And a team member will contact you soon.
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="p-8">
-            <div className="space-y-8">
-              
-              {/* Contact Information Section */}
-              <div>
-                <div className="flex items-center mb-6">
-                  <Users className="w-5 h-5 text-blue-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
-                </div>
+      {/* Form Section */}
+      <div className="max-w-6xl mx-auto px-6 py-20">
+        <div className="space-y-16">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-semibold text-gray-700 mb-12">
+              A couple steps away from becoming certified! Fill out required fields and a team member will contact you soon!
+            </h1>
+          </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="Enter your name"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
+          {/* Contact Information Section */}
+          <div>
+            <div className="flex items-center mb-6">
+              <Users className="w-5 h-5 text-blue-600 mr-2" />
+              <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
+            </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="Enter your email"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number *</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="Enter your phone number"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name *</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your name"
+                  required
+                  className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
+                />
               </div>
 
-              <Separator />
-
-              {/* Business Information Section */}
-              <div>
-                <div className="flex items-center mb-6">
-                  <Building2 className="w-5 h-5 text-green-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-gray-900">Source Information</h3>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="entityName">Entity Name *</Label>
-                    <Input
-                      id="entityName"
-                      name="entityName"
-                      value={formData.entityName}
-                      onChange={handleInputChange}
-                      placeholder="Enter your entity name"
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="description">Description *</Label>
-                    <Textarea
-                      id="description"
-                      name="description"
-                      value={formData.description}
-                      onChange={handleInputChange}
-                      placeholder="Briefly describe your business"
-                      required
-                      rows={4}
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500 resize-none"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="website">Website</Label>
-                    <Input
-                      id="website"
-                      name="website"
-                      type="url"
-                      value={formData.website}
-                      onChange={handleInputChange}
-                      placeholder="https://www.yourbusiness.com"
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="location">Location</Label>
-                    <Input
-                      id="location"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleInputChange}
-                      placeholder="Enter your business location"
-                      className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  required
+                  className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
+                />
               </div>
 
-              <Separator />
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number *</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="Enter your phone number"
+                  required
+                  className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+            </div>
+          </div>
 
-              {/* Additional Information */}
-              <div>
+          <Separator />
+
+          {/* Business Information Section */}
+          <div>
+            <div className="flex items-center mb-6">
+              <Building2 className="w-5 h-5 text-green-600 mr-2" />
+              <h3 className="text-xl font-semibold text-gray-900">Source Information</h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="space-y-2">
+                <Label htmlFor="entityName">Entity Name *</Label>
+                <Input
+                  id="entityName"
+                  name="entityName"
+                  value={formData.entityName}
+                  onChange={handleInputChange}
+                  placeholder="Enter your entity name"
+                  required
+                  className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="website">Website</Label>
+                <Input
+                  id="website"
+                  name="website"
+                  type="url"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  placeholder="https://www.yourbusiness.com"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="location">Location</Label>
+                <Input
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  placeholder="Enter your business location"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          <Separator />
+
+          {/* More Information Section */}
+          <div>
+            <div>
+              <div className="flex items-center mb-6">
+                <h3 className="text-xl font-semibold text-gray-900">Tell us more about what you stand for!</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description *</Label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    placeholder="Briefly describe your business"
+                    required
+                    rows={4}
+                    className="transition-all duration-200 focus:ring-2 focus:ring-green-500 resize-none"
+                  />
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="additionalInfo">Additional Information</Label>
                   <Textarea
@@ -259,36 +261,35 @@ export default function BecomeCleanCertified() {
                   />
                 </div>
               </div>
-
-              {/* Submit Button */}
-              <div className="pt-6">
-                <Button 
-                  onClick={handleSubmit}
-                  className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold py-4 rounded-lg transition-all duration-200 transform hover:scale-105"
-                  disabled={isSubmitting}
-                  size="lg"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                      Processing Application...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5 mr-2" />
-                      Submit Certification Application
-                    </>
-                  )}
-                </Button>
-                
-                <p className="text-sm text-gray-500 text-center mt-4">
-                  By submitting this application, you agree to our terms of service and certification requirements.
-                </p>
-              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
+          {/* Submit Button */}
+          <div className="pt-6">
+            <Button
+              onClick={handleSubmit}
+              className="w-full px-10 py-4 rounded-md bg-[#2d5f5d] text-white font-medium hover:bg-gray-800 py-4 rounded-lg transition-all duration-200 transform hover:scale-105"
+              disabled={isSubmitting}
+              size="lg"
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Processing Application...
+                </>
+              ) : (
+                  <>
+                    <Send className="w-5 h-5 mr-2" />
+                      Submit Certification Application
+                  </>
+                )}
+            </Button>
+
+            <p className="text-sm text-gray-500 text-center mt-4">
+              By submitting this application, you agree to our terms of service and certification requirements.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
