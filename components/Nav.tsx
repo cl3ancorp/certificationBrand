@@ -55,7 +55,7 @@ export default function Nav() {
               <Link href="/" className="mr-4">
                 <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
               </Link>
-              <Link href={"/companies"}><div className="text-gray-600" style={{ fontSize: '14px', lineHeight: 0 }}>Directory</div></Link>
+              <Link href={"/companies"}><div className="text-gray-600" style={{ fontSize: '15px', lineHeight: 0 }}>[ Directory ]</div></Link>
             </div>
           </div>
 
