@@ -11,6 +11,9 @@ interface Company {
     id: string  // UUID
     created_at: string
     name: string | null
+    img_url: string | null
+    logo: string | null
+    website: string | null
     description: string | null
     size: string | null
     industry: string | null
@@ -134,10 +137,10 @@ function CompanyDetail() {
                 <div className="max-w-7xl mx-auto px-8 pt-12 pb-24 relative">
                     {/* HERO IMAGE */}
                     <div className="relative h-[420px] rounded-3xl overflow-hidden">
-                        {company.img_url && (
+                        {company?.img_url && (
                             <img
-                                src={company.img_url}
-                                alt={company.name ?? ''}
+                                src={company?.img_url}
+                                alt={company?.name ?? ''}
                                 className="w-full h-full object-cover"
                             />
                         )}
@@ -148,9 +151,13 @@ function CompanyDetail() {
                         <div className="bg-white rounded-2xl shadow-xl w-64 h-64 flex items-center justify-center">
                             {/* Replace with <Image /> if you have a logo URL */}
                             <div className="w-40 h-40 rounded-full bg-gray-100 flex items-center justify-center">
-                                {company.logo ?? (
-                                    <span className="text-gray-400 text-sm">Logo</span>
-                                    )}
+                                {company?.logo && (
+                                    <img
+                                        src={company?.logo}
+                                        alt={company?.name ?? ''}
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
                                 </div>
                             </div>
                                 </div>
