@@ -1,8 +1,9 @@
-// app/company/page.tsx (App Router)
 'use client'
+
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { Button } from '../../components/ui/button';
 import { createClient } from '@supabase/supabase-js'
 
 // Company interface with UUID
@@ -97,10 +98,10 @@ function CompanyDetail() {
                         </div>
                         <div className="mt-6">
                             <Link
-                                href="/companies"
-                                className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
+                                href="/directory"
+                                className="inline-block bg-[#2d5f5d] text-white px-6 py-2 rounded hover:bg-[#16464C] transition-colors"
                             >
-                                ← Back to Companies
+                              ← Back to Directory
                             </Link>
                         </div>
                     </div>
@@ -109,146 +110,133 @@ function CompanyDetail() {
         )
     }
 
-    // No company found
     if (!company) {
         return (
-            <div className="min-h-screen bg-gray-50">
-                <div className="container mx-auto px-4 py-8">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                     <div className="text-center">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-4">Company Not Found</h2>
-                        <p className="text-gray-600 mb-6">The company you&apos;re looking for doesn&apos;t exist.</p>
-                        <Link
-                            href="/companies"
-                            className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
-                        >
-                            ← Back to Companies
+                    <h1 className="text-gray-900 mb-4" style={{ fontSize: '24px', fontWeight: 600 }}>
+                        Company not found
+                    </h1>
+                    <Link href="/directory">
+                        <Button className="bg-[#2d5f5d] hover:bg-[#234948]">
+                            ← Back to Directory
+                        </Button>
                         </Link>
                     </div>
                 </div>
-            </div>
-        )
+        );
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="container mx-auto px-4 py-8">
-                {/* Breadcrumb */}
-                <nav className="mb-6">
-                    <Link
-                        href="/companies"
-                        className="text-blue-600 hover:text-blue-800 underline"
-                    >
-                        ← Back to Companies
-                    </Link>
-                </nav>
-
-                {/* Company Header */}
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div className="p-8">
-                        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
-                            <div className="flex-1">
-                                <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                                    {company.name || 'Unnamed Company'}
-                                </h1>
-
-                                {/* Company badges */}
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {company.industry && (
-                                        <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                                            {company.industry}
-                                        </span>
-                                    )}
-                                    {company.size && (
-                                        <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                                            {company.size}
-                                        </span>
-                                    )}
-                                    <span className="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
-                                        B Corp Certified
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Company Description */}
-                        {company.description && (
-                            <div className="mb-8">
-                                <h2 className="text-2xl font-semibold text-gray-900 mb-4">About</h2>
-                                <p className="text-gray-700 leading-relaxed text-lg">
-                                    {company.description}
-                                </p>
-                            </div>
+        <div className="min-h-screen bg-white">
+            {/* Header */}
+            <div className="bg-[#f7f7f5] border-b border-gray-200">
+                <div className="max-w-7xl mx-auto px-8 pt-12 pb-24 relative">
+                    {/* HERO IMAGE */}
+                    <div className="relative h-[420px] rounded-3xl overflow-hidden">
+                        {company.img_url && (
+                            <img
+                                src={company.img_url}
+                                alt={company.name ?? ''}
+                                className="w-full h-full object-cover"
+                            />
                         )}
-
-                        {/* Company Details Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {/* Industry */}
-                            {company.industry && (
-                                <div className="bg-gray-50 p-4 rounded-lg">
-                                    <h3 className="font-semibold text-gray-900 mb-2">Industry</h3>
-                                    <p className="text-gray-700">{company.industry}</p>
-                                </div>
-                            )}
-
-                            {/* Company Size */}
-                            {company.size && (
-                                <div className="bg-gray-50 p-4 rounded-lg">
-                                    <h3 className="font-semibold text-gray-900 mb-2">Company Size</h3>
-                                    <p className="text-gray-700">{company.size}</p>
-                                </div>
-                            )}
-
-                            {/* Certification Date */}
-                            <div className="bg-gray-50 p-4 rounded-lg">
-                                <h3 className="font-semibold text-gray-900 mb-2">Added to Directory</h3>
-                                <p className="text-gray-700">
-                                    {new Date(company.created_at).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Operates In */}
-                        {company.operates_in && company.operates_in.length > 0 && (
-                            <div className="mt-8">
-                                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Global Presence</h2>
-                                <div className="bg-gray-50 p-4 rounded-lg">
-                                    <h3 className="font-semibold text-gray-900 mb-3">Operates In</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {company.operates_in.map((location: string, index: number) => (
-                                            <span
-                                                key={index}
-                                                className="inline-block bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm shadow-sm"
-                                            >
-                                                {location}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Company ID (for debugging) */}
-                        <div className="mt-8 pt-6 border-t border-gray-200">
-                            <p className="text-sm text-gray-500">
-                                Company ID: <code className="bg-gray-100 px-2 py-1 rounded text-xs">{company.id}</code>
-                            </p>
-                        </div>
                     </div>
+
+                    {/* FLOATING LOGO CARD */}
+                    <div className="absolute right-8 bottom-0 translate-y-1/2">
+                        <div className="bg-white rounded-2xl shadow-xl w-64 h-64 flex items-center justify-center">
+                            {/* Replace with <Image /> if you have a logo URL */}
+                            <div className="w-40 h-40 rounded-full bg-gray-100 flex items-center justify-center">
+                                {company.logo ?? (
+                                    <span className="text-gray-400 text-sm">Logo</span>
+                                    )}
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+
+            {/* Back link */}
+            <div className="border-b border-gray-200">
+                <div className="max-w-7xl mx-auto px-8 py-4">
+                    <Link
+                        href="/directory"
+                        className="text-sm text-gray-600 hover:text-gray-900"
+                    >
+                        ← Back to Directory
+                    </Link>
+                            </div>
+                            </div>
+
+            {/* Main Content */}
+            <div className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-12 gap-12">
+
+                {/* Sidebar / Fact Panel */}
+                <aside className="col-span-3">
+                    <div className="bg-[#fafafa] border border-gray-200 rounded-xl p-6 space-y-6">
+                        <div>
+                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                                Headquarters
+                            </dt>
+                            <dd className="text-sm text-gray-900">
+                                {company?.operates_in?.[0]}
+                            </dd>
+                                </div>
+
+                        <div>
+                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                                Certified Since
+                            </dt>
+                            <dd className="text-sm text-gray-900">
+                                {new Date(company.created_at).getFullYear()}
+                            </dd>
+                                </div>
+
+                        <div>
+                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                                Industry
+                            </dt>
+                            <dd className="text-sm text-gray-900">
+                                {company?.industry}
+                            </dd>
+                            </div>
+
+                        <div>
+                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                                Company Size
+                            </dt>
+                            <dd className="text-sm text-gray-900">
+                                {company?.size}
+                            </dd>
+                        </div>
+
+                            </div>
+                </aside>
+
+                {/* Main Narrative */}
+                <section className="col-span-9">
+                    <h2 className="text-3xl font-semibold text-gray-900 mb-6">
+                        About {company?.name}
+                    </h2>
+
+                    <div className="prose prose-gray max-w-none">
+                        <p>{company?.description}</p>
                 </div>
 
-                {/* Related Actions */}
-                <div className="mt-8 text-center">
-                    <Link
-                        href="/companies"
-                        className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    {company?.website && (
+                        <div className="mt-10">
+                            <a
+                                href={company.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center text-sm font-semibold text-gray-900 border-b border-gray-900 hover:opacity-70"
                     >
-                        Explore More B Corps
-                    </Link>
+                                Visit company website →
+                            </a>
                 </div>
+                    )}
+                </section>
             </div>
         </div>
     )

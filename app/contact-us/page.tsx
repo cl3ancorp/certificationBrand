@@ -80,7 +80,7 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-[#2d5f5d] text-white py-20">
+      <div className="bg-[#16464C] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="mb-4" style={{ fontSize: '48px', fontWeight: 600 }}>
             Get in Touch
@@ -105,7 +105,7 @@ export default function Page() {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div>
-            <h2 className="text-[#2d5f5d] mb-6" style={{ fontSize: '32px', fontWeight: 600 }}>
+            <h2 className="text-[#16464C] mb-6" style={{ fontSize: '32px', fontWeight: 600 }}>
               Send Us a Message
             </h2>
             <form className="space-y-6">
@@ -189,7 +189,7 @@ export default function Page() {
               </div>
               <Button
                   onClick={handleSubmit}
-                  className="w-full bg-[#2d5f5d] hover:bg-[#234948] font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
+                  className="w-full bg-[#16464C] hover:bg-[#234948] font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -209,14 +209,14 @@ export default function Page() {
 
           {/* Contact Info */}
           <div>
-            <h2 className="text-[#2d5f5d] mb-6" style={{ fontSize: '32px', fontWeight: 600 }}>
+            <h2 className="text-[#16464C] mb-6" style={{ fontSize: '32px', fontWeight: 600 }}>
               Other Ways to Reach Us
             </h2>
 
             <div className="space-y-6">
               <Card className="p-6">
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-[#2d5f5d] rounded-full flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#16464C] rounded-full flex items-center justify-center">
                     <span className="text-white text-xl">📧</span>
                   </div>
                   <div>
@@ -232,7 +232,7 @@ export default function Page() {
 
               <Card className="p-6">
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-[#2d5f5d] rounded-full flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#16464C] rounded-full flex items-center justify-center">
                     <span className="text-white text-xl">💬</span>
                   </div>
                   <div>
@@ -248,7 +248,7 @@ export default function Page() {
             </div>
 
             {/* Getting Started Section */}
-            <div className="mt-12 bg-[#2d5f5d] text-white p-8 rounded-lg">
+            <div className="mt-12 bg-[#16464C] text-white p-8 rounded-lg">
               <h3 className="mb-4" style={{ fontSize: '24px', fontWeight: 600 }}>
                 Ready to Get Started?
               </h3>
@@ -256,7 +256,7 @@ export default function Page() {
                 If you&apos;re interested in becoming CL3AN certified, start your application today.
               </p>
               <Link href={"/become-clean-certified"}>
-                <Button variant="secondary" className="bg-white text-[#2d5f5d] hover:bg-gray-100" style={{ fontSize: '16px' }} >
+                <Button variant="secondary" className="bg-white text-[#16464C] hover:bg-gray-100" style={{ fontSize: '16px' }} >
                   Begin Application
                 </Button>
               </Link>

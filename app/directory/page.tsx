@@ -99,7 +99,7 @@ export default function Directory() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="bg-[#2d5f5d] py-16">
+      <div className="bg-[#16464C] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Logo Badge */}
           <div className="flex justify-center mb-8">
@@ -121,7 +121,7 @@ export default function Directory() {
               placeholder="Search certified businesses..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-white h-12"
+              className="bg-white h-10 text-center"
               style={{ fontSize: '15px' }}
             />
           </div>
@@ -182,7 +182,7 @@ export default function Directory() {
                       key={pageNumber}
                       onClick={() => setCurrentPage(pageNumber)}
                       className={`px-3 py-2 border rounded ${currentPage === pageNumber
-                        ? 'bg-[#2d5f5d] text-white border-blue-600'
+                        ? 'bg-[#16464C] text-white border-[#16464C]'
                         : 'border-gray-300 hover:bg-gray-50'
                         }`}
                     >

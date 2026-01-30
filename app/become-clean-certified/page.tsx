@@ -94,7 +94,7 @@ export default function BecomeCleanCertified() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-[#2d5f5d] text-center py-20">
+      <div className="bg-[#16464C] text-center py-20">
         <div className="flex justify-center mb-4">
           <Image height={150} width={150} alt={logoAlt} src={logoSrc} />
         </div>
@@ -268,7 +268,7 @@ export default function BecomeCleanCertified() {
           <div className="pt-6">
             <Button
               onClick={handleSubmit}
-              className="w-full px-10 py-4 rounded-md bg-[#2d5f5d] text-white font-medium hover:bg-gray-800 py-4 rounded-lg transition-all duration-200 transform hover:scale-105"
+              className="w-full px-10 py-4 rounded-md bg-[#16464C] text-white font-medium hover:bg-gray-800 py-4 rounded-lg transition-all duration-200 transform hover:scale-105"
               disabled={isSubmitting}
               size="lg"
             >
