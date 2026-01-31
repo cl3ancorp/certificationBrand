@@ -12,10 +12,11 @@ import {
 export default function Nav() {
 
   const navLinks = [
-    { href: '/become-clean-certified', label: 'Become Clean Certified' },
-    { href: '/directory', label: 'CL3AN Directory' },
     { href: '/about-us', label: 'About Us' },
+    { href: '/beacons', label: 'Beacons' },
+    { href: '/become-clean-certified', label: 'Become Clean Certified' },
     { href: '/contact-us', label: 'Contact Us' },
+    { href: '/directory', label: 'CL3AN Directory' },
   ];
 
   return (

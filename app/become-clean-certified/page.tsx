@@ -65,16 +65,16 @@ export default function BecomeCleanCertified() {
         setShowSuccess(true);
 
         // Reset form
-        // setFormData({
-        //   name: '',
-        //   email: '',
-        //   phone: '',
-        //   entityName: '',
-        //   description: '',
-        //   website: '',
-        //   location: '',
-        //   additionalInfo: ''
-        // });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          entityName: '',
+          description: '',
+          website: '',
+          location: '',
+          additionalInfo: ''
+        });
 
         // Hide success message after 5 seconds
         setTimeout(() => setShowSuccess(false), 5000);
