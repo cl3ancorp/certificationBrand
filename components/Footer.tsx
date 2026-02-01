@@ -1,79 +1,117 @@
-import { AiFillTwitterSquare, AiFillFacebook, AiFillLinkedin, AiFillYoutube, AiFillInstagram } from 'react-icons/ai';
-
+import Link from 'next/link';
+import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export default function Footer() {
-    const footerSections = [
-        {
-            title: "About CLE3AN",
-            links: [
-                "Contact Us"
-            ]
-        },
-    ];
+  return (
+    <footer className="bg-white border">
+      <div className="max-w-7xl mx-auto px-8 py-12">
+        {/* Main Footer Content */}
+        <div className="flex flex-col md:flex-row gap-12 mb-8">
 
-    return (
-        <footer className="py-4">
-            <div className="container mx-auto px-4">
+          {/* Logo */}
+          <div className="w-32 h-32 shrink-0">
+            <Link href="/" className="mr-4">
+              <img
+                className="w-auto"
+                src="/images/branding/Logotipo-Cl3an-03.png"
+                alt="Clean Corp Logo"
+              />
+            </Link>
+          </div>
 
-                <div className="flex flex-row-gutter-3 justify-center">
-                    <div className="flex flex-col-stack-3 p-4 max-w-xl">
-                        <p>
-                            Sign up to our Insights newsletter, a monthly digest of the latest news on economic systems change from B Lab Global.
-                        </p>
-                        <input className="p-2 border-1 border-b-3 border-black" placeholder="Email Adress"></input>
-                        <input className="p-2 border-1 border-b-3 border-black" placeholder="Organization"></input>
-                        <button className="bg-yellow-400 border-yellow-400 flex flex-col items-center border-4 px-16 py-3 font-bold">Submit</button>
+          {/* Links Columns (pushed right, constrained width) */}
+          <div className="ml-auto">
+            <div className="grid grid-cols-3 gap-8 md:gap-12 max-w-md">
+              
+              {/* FAQs Column */}
+              <div>
+                <h3 className="text-gray-900 mb-4 font-bold text-base">
+                  FAQs
+                </h3>
+                <ul className="space-y-2">
+                  {['Who?', 'When?', 'Where?', 'What?'].map((item) => (
+                    <li key={item}>
+                      <Link href="/about-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                    </div>
-                    {footerSections.map((section, index) => (
-                        <div key={index} className="flex flex-col-stack-2">
-                            <h2 className="font-bold">{section.title}</h2>
-                            {section.links.map((link, linkIndex) => (
-                                <p key={linkIndex}>{link}</p>
-                            ))}
-                        </div>
-                    ))}
+              {/* Become Certified Column */}
+              <div>
+                <h3 className="text-gray-900 mb-4 font-bold text-base">
+                  Become Certified
+                </h3>
+                <ul className="space-y-2">
+                  {['Process', 'Benefits', 'Get started'].map((item) => (
+                    <li key={item}>
+                      <Link
+                        href="/become-clean-certified"
+                        className="text-gray-600 hover:text-[#16464C] text-sm transition-colors"
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                    <div className="flex flex-col space-y-4">
-                        <h2 className="font-bold">Follow Us</h2>
+              {/* Company Column */}
+              <div>
+                <h3 className="text-gray-900 mb-4 font-bold text-base">
+                  Company
+                </h3>
+                <ul className="space-y-2">
+                  <li>
+                    <Link href="/about-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                      About us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contact-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                      Contact us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/about-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                      History
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-                        <div className="flex items-center space-x-2 hover:text-blue-400 cursor-pointer transition-colors">
-                            <AiFillTwitterSquare className="w-6 h-6" />
-                            <span>Twitter</span>
-                        </div>
-
-                        <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
-                            <AiFillFacebook className="w-6 h-6" />
-                            <span>Facebook</span>
-                        </div>
-
-                        <div className="flex items-center space-x-2 hover:text-blue-700 cursor-pointer transition-colors">
-                            <AiFillLinkedin className="w-6 h-6" />
-                            <span>LinkedIn</span>
-                        </div>
-
-                        <div className="flex items-center space-x-2 hover:text-red-600 cursor-pointer transition-colors">
-                            <AiFillYoutube className="w-6 h-6" />
-                            <span>YouTube</span>
-                        </div>
-
-                        <div className="flex items-center space-x-2 hover:text-pink-500 cursor-pointer transition-colors">
-                            <AiFillInstagram className="w-6 h-6" />
-                            <span>Instagram</span>
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-                {/* <p className="text-sm text-gray-600">© {new Date().getFullYear()} Clearn Corp. All rights reserved.</p>
-                <p className="text-sm text-gray-600">Follow us on 
-                    <a href="https://twitter.com" className="text-blue-500 ml-1">Twitter</a> | 
-                    <a href="https://facebook.com" className="text-blue-500 ml-1">Facebook</a> | 
-                    <a href="https://instagram.com" className="text-blue-500 ml-1">Instagram</a>
-                </p> */}
             </div>
-        </footer>
-    );
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-gray-200 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            {/* Copyright */}
+            <div className="text-gray-600 text-sm">
+              © CL3AN, Inc. 2025
+            </div>
+
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-4">
+              <span className="text-gray-600 text-sm">Follow us:</span>
+              <div className="flex gap-3">
+                {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
+                  <Link
+                    key={i}
+                    href="#"
+                    className="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#16464C] flex items-center justify-center transition-colors group"
+                  >
+                    <Icon className="w-5 h-5 text-gray-600 group-hover:text-white" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }
