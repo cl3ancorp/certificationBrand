@@ -77,11 +77,11 @@ function CompanyDetail() {
         return (
             <div className="min-h-screen bg-gray-50">
                 <div className="container mx-auto px-4 py-8">
-                    <div className="animate-pulse">
-                        <div className="h-8 bg-gray-300 rounded w-1/4 mb-4"></div>
-                        <div className="h-12 bg-gray-300 rounded w-3/4 mb-6"></div>
-                        <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-                        <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
+                    <div className="animate-pulse space-y-4">
+                        <div className="h-6 sm:h-8 bg-gray-300 rounded w-1/3"></div>
+                        <div className="h-10 sm:h-12 bg-gray-300 rounded w-full sm:w-3/4"></div>
+                        <div className="h-4 bg-gray-300 rounded w-full"></div>
+                        <div className="h-4 bg-gray-300 rounded w-full"></div>
                         <div className="h-4 bg-gray-300 rounded w-3/4"></div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ function CompanyDetail() {
                 <div className="container mx-auto px-4 py-8">
                     <div className="text-center">
                         <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg inline-block">
-                            <h2 className="text-xl font-semibold mb-2">Error</h2>
+                            <h2 className="text-lg sm:text-xl font-semibold mb-2">Error</h2>
                             <p>{error}</p>
                         </div>
                         <div className="mt-6">
@@ -104,7 +104,7 @@ function CompanyDetail() {
                                 href="/directory"
                                 className="inline-block bg-[#2d5f5d] text-white px-6 py-2 rounded hover:bg-[#16464C] transition-colors"
                             >
-                              ← Back to Directory
+                                ← Back to Directory
                             </Link>
                         </div>
                     </div>
@@ -115,73 +115,72 @@ function CompanyDetail() {
 
     if (!company) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                    <div className="text-center">
-                    <h1 className="text-gray-900 mb-4" style={{ fontSize: '24px', fontWeight: 600 }}>
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+                <div className="text-center">
+                    <h1 className="text-xl font-semibold text-gray-900 mb-4">
                         Company not found
                     </h1>
                     <Link href="/directory">
                         <Button className="bg-[#2d5f5d] hover:bg-[#234948]">
                             ← Back to Directory
                         </Button>
-                        </Link>
-                    </div>
+                    </Link>
                 </div>
-        );
+            </div>
+        )
     }
-
+    // background-accent
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
-            <div className="bg-[#f7f7f5] border-b border-gray-200">
-                <div className="max-w-7xl mx-auto px-8 pt-12 pb-24 relative">
+            <div className=" border-b border">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 lg:pt-12 pb-12 lg:pb-24 relative">
                     {/* HERO IMAGE */}
-                    <div className="relative h-[420px] rounded-3xl overflow-hidden">
+                    <div className="relative h-56 sm:h-72 lg:h-[420px] rounded-2xl lg:rounded-3xl overflow-hidden">
                         {company?.img_url && (
                             <img
-                                src={company?.img_url}
-                                alt={company?.name ?? ''}
+                                src={company.img_url}
+                                alt={company.name ?? ''}
                                 className="w-full h-full object-cover"
                             />
                         )}
                     </div>
 
-                    {/* FLOATING LOGO CARD */}
-                    <div className="absolute right-8 bottom-0 translate-y-1/2">
-                        <div className="bg-white rounded-2xl shadow-xl w-64 h-64 flex items-center justify-center">
-                            {/* Replace with <Image /> if you have a logo URL */}
-                            <div className="w-40 h-40 rounded-full bg-gray-100 flex items-center justify-center">
-                                {company?.logo && (
+                    {/* TBA: LOGO */}
+                    <div className="mt-6 flex justify-center lg:absolute lg:right-8 lg:bottom-0 lg:translate-y-1/2">
+                        <div className="bg-white rounded-2xl shadow-xl w-32 h-32 sm:w-40 sm:h-40 lg:w-64 lg:h-64 flex items-center justify-center">
+                            <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-40 lg:h-40 rounded-full bg-gray-100 flex items-center justify-center">
+                                {company?.img_url && (
                                     <img
-                                        src={company?.logo}
-                                        alt={company?.name ?? ''}
-                                        className="w-full h-full object-cover"
+                                        src={company.img_url}
+                                        alt={company.name ?? ''}
+                                        className="w-full h-full object-cover rounded-full"
                                     />
                                 )}
-                                </div>
-                            </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
             {/* Back link */}
             <div className="border-b border-gray-200">
-                <div className="max-w-7xl mx-auto px-8 py-4">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
                     <Link
                         href="/directory"
                         className="text-sm text-gray-600 hover:text-gray-900"
                     >
                         ← Back to Directory
                     </Link>
-                            </div>
-                            </div>
+                </div>
+            </div>
 
             {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-12 gap-12">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-                {/* Sidebar / Fact Panel */}
-                <aside className="col-span-3">
-                    <div className="bg-[#fafafa] border border-gray-200 rounded-xl p-6 space-y-6">
+                {/* Sidebar */}
+                <aside className="lg:col-span-3">
+                    <div className="bg-[#fafafa] border border-gray-200 rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-6">
                         <div>
                             <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
                                 Headquarters
@@ -189,7 +188,7 @@ function CompanyDetail() {
                             <dd className="text-sm text-gray-900">
                                 {company?.operates_in?.[0]}
                             </dd>
-                                </div>
+                        </div>
 
                         <div>
                             <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
@@ -198,7 +197,7 @@ function CompanyDetail() {
                             <dd className="text-sm text-gray-900">
                                 {new Date(company.created_at).getFullYear()}
                             </dd>
-                                </div>
+                        </div>
 
                         <div>
                             <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
@@ -207,7 +206,7 @@ function CompanyDetail() {
                             <dd className="text-sm text-gray-900">
                                 {company?.industry}
                             </dd>
-                            </div>
+                        </div>
 
                         <div>
                             <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
@@ -217,31 +216,30 @@ function CompanyDetail() {
                                 {company?.size}
                             </dd>
                         </div>
-
-                            </div>
+                    </div>
                 </aside>
 
                 {/* Main Narrative */}
-                <section className="col-span-9">
-                    <h2 className="text-3xl font-semibold text-gray-900 mb-6">
+                <section className="lg:col-span-9">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900 mb-4 lg:mb-6">
                         About {company?.name}
                     </h2>
 
                     <div className="prose prose-gray max-w-none">
                         <p>{company?.description}</p>
-                </div>
+                    </div>
 
                     {company?.website && (
-                        <div className="mt-10">
+                        <div className="mt-8 lg:mt-10">
                             <a
                                 href={company.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center text-sm font-semibold text-gray-900 border-b border-gray-900 hover:opacity-70"
-                    >
+                            >
                                 Visit company website →
                             </a>
-                </div>
+                        </div>
                     )}
                 </section>
             </div>
