@@ -59,7 +59,7 @@ function HeroStatsLargeScreen() {
                     {/* IMAGES */}
                     <div className="flex-row-gutter-3">
                         <div className="flex-col-stack-3 flex-7">
-                            <a href="/companies" className="relative flex flex-col items-center text-white">
+                            <a href="/directory" className="relative flex flex-col items-center text-white">
                                 <ImageCaptionBox imgSrc={certifiedImgSrc} caption="Certified" />
                             </a>
                         </div>

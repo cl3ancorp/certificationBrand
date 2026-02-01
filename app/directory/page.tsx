@@ -129,7 +129,7 @@ export default function Directory() {
       </div>
 
       {/* Results Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Results Header */}
         <div className="flex justify-between items-center mb-6">
           <div className="text-gray-600" style={{ fontSize: '14px' }}>

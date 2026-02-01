@@ -51,12 +51,22 @@ export default function Nav() {
           </div>
 
           {/* Logo */}
-          <div className="flex items-center text-center gap-3 hover:opacity-80 transition-opacity">
-            <div>
-              <Link href="/" className="mr-4">
-                <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
+          <div className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="flex flex-col items-center gap-0.5">
+              <Link href="/directory" className="block">
+                <img
+                  className="h-10 w-auto block"
+                  src="/images/branding/Logotipo-Cl3an-28.png"
+                  alt="Clean Corp Logo"
+                />
               </Link>
-              <Link href={"/directory"}><div className="text-gray-600" style={{ fontSize: '15px', lineHeight: 0 }}>[ Directory ]</div></Link>
+
+              <Link
+                href="/directory"
+                className="text-gray-600 text-sm leading-tight hover:text-[#16464C] transition-colors"
+              >
+                [ Directory ]
+              </Link>
             </div>
           </div>
 

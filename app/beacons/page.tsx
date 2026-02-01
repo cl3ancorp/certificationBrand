@@ -2,6 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { Button } from '../../components/ui/button';
+import Link from 'next/link';
 
 interface Beacon {
     id: string;
@@ -12,6 +13,7 @@ interface Beacon {
     title: string;
     description: string;
     img_url: string;
+    website: string;
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -129,7 +131,10 @@ export default function Beacons() {
                 )}
                 <div className="grid md:grid-cols-3 gap-8">
                     {!loading && beaconsList.map((beacon) => (
-                        <div
+                        <Link
+                            href={beacon.website || '#'}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             key={beacon.id}
                             className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                         >
@@ -152,13 +157,13 @@ export default function Beacons() {
                                     {beacon.description}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
 
             {/* Recommendation Form Section */}
-            <div className="bg-gray-50 py-16">
+            <div className="bg-white py-16">
                 <div className="max-w-3xl mx-auto px-8">
                     <h2 className="text-gray-900 text-center mb-2" style={{ fontSize: '32px', fontWeight: 700 }}>
                         Missing a someone? Recommend a Beacon!

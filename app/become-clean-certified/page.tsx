@@ -92,7 +92,7 @@ export default function BecomeCleanCertified() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
       <div className="bg-[#16464C] text-center py-20">
         <div className="flex justify-center mb-4">

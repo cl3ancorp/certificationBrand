@@ -102,7 +102,7 @@ function CompanyDetail() {
                         <div className="mt-6">
                             <Link
                                 href="/directory"
-                                className="inline-block bg-[#2d5f5d] text-white px-6 py-2 rounded hover:bg-[#16464C] transition-colors"
+                                className="inline-block bg-[#16464C] text-white px-6 py-2 rounded hover:bg-[#16464C] transition-colors"
                             >
                                 ← Back to Directory
                             </Link>
@@ -121,7 +121,7 @@ function CompanyDetail() {
                         Company not found
                     </h1>
                     <Link href="/directory">
-                        <Button className="bg-[#2d5f5d] hover:bg-[#234948]">
+                        <Button className="bg-[#16464C] hover:bg-[#234948]">
                             ← Back to Directory
                         </Button>
                     </Link>
@@ -134,7 +134,7 @@ function CompanyDetail() {
         <div className="min-h-screen bg-white">
             {/* Header */}
             <div className=" border-b border">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 lg:pt-12 pb-12 lg:pb-24 relative">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 lg:pt-12 pb-12 lg:pb-24 relative">
                     {/* HERO IMAGE */}
                     <div className="relative h-56 sm:h-72 lg:h-[420px] rounded-2xl lg:rounded-3xl overflow-hidden">
                         {company?.img_url && (
@@ -165,7 +165,7 @@ function CompanyDetail() {
 
             {/* Back link */}
             <div className="border-b border-gray-200">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
                     <Link
                         href="/directory"
                         className="text-sm text-gray-600 hover:text-gray-900"
@@ -176,46 +176,53 @@ function CompanyDetail() {
             </div>
 
             {/* Main Content */}
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                 {/* Sidebar */}
                 <aside className="lg:col-span-3">
                     <div className="bg-[#fafafa] border border-gray-200 rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-6">
-                        <div>
-                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
-                                Headquarters
-                            </dt>
-                            <dd className="text-sm text-gray-900">
-                                {company?.operates_in?.[0]}
-                            </dd>
-                        </div>
-
-                        <div>
-                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
-                                Certified Since
-                            </dt>
-                            <dd className="text-sm text-gray-900">
-                                {new Date(company.created_at).getFullYear()}
-                            </dd>
-                        </div>
-
-                        <div>
-                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
-                                Industry
-                            </dt>
-                            <dd className="text-sm text-gray-900">
-                                {company?.industry}
-                            </dd>
-                        </div>
-
-                        <div>
-                            <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
-                                Company Size
-                            </dt>
-                            <dd className="text-sm text-gray-900">
-                                {company?.size}
-                            </dd>
-                        </div>
+                        {[
+                            {
+                                label: 'Headquarters',
+                                value: company?.headquarters
+                            },
+                            {
+                                label: 'Certified Since',
+                                value: company?.created_at
+                                    ? new Date(company.created_at).getFullYear()
+                                    : null
+                            },
+                            {
+                                label: 'Industry',
+                                value: company?.industry
+                            },
+                            {
+                                label: 'Sector',
+                                value: company?.sector?.join(', ')
+                            },
+                            {
+                                label: 'Company Size',
+                                value: company?.size
+                            },
+                            {
+                                label: 'Operates In',
+                                value: company?.operates_in?.join(', ')
+                            },
+                            {
+                                label: 'Website',
+                                value: company?.website
+                            }
+                        ]
+                            .filter(item => item.value)
+                            .map(item => (
+                                <div key={item.label}>
+                                    <dt className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                                        {item.label}
+                                    </dt>
+                                    <dd className="text-sm text-gray-900">
+                                        {item.value}
+                                    </dd>
+                                </div>
+                            ))}
                     </div>
                 </aside>
 
