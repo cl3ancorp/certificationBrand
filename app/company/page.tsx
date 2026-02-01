@@ -18,6 +18,8 @@ interface Company {
     size: string | null
     industry: string | null
     operates_in: string[] | null
+    headquarters: string | null
+    sector: string[] | null
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
