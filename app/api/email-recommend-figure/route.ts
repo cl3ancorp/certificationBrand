@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const { formData } = body;
 
     const emailHtml = `
-      <h2>Beacon Recommendation Form</h2>
+      <h2>Figure Recommendation Form</h2>
       <h3>Contact Details</h3>
       <ul>
         <li><strong>Full Name:</strong> ${formData.name}</li>
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const data = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'cl3ancorp@gmail.com',
-      subject: `New Beacon Recommendation: ${formData.name}`,
+      subject: `New Figure Recommendation: ${formData.name}`,
       html: emailHtml,
     });
 

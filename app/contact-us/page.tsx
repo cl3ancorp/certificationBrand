@@ -86,7 +86,7 @@ export default function Page() {
             Get in Touch
             </h1>
           <p className="max-w-2xl mx-auto" style={{ fontSize: '18px', opacity: 0.9 }}>
-            Have questions about certification? Want to learn more about CL3AN? We&apos;re here to help.
+          Questions or want to learn more about CL3AN? We&apos;re here to help.
             </p>
         </div>
       </div>

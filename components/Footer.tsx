@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -21,46 +20,35 @@ export default function Footer() {
 
           {/* Links Columns (pushed right, constrained width) */}
           <div className="ml-auto">
-            <div className="grid grid-cols-3 gap-8 md:gap-12 max-w-md">
+            <div className="grid grid-cols-2 gap-8 md:gap-10 max-w-md">
               
-              {/* FAQs Column */}
-              <div>
-                <h3 className="text-gray-900 mb-4 font-bold text-base">
-                  FAQs
-                </h3>
-                <ul className="space-y-2">
-                  {['Who?', 'When?', 'Where?', 'What?'].map((item) => (
-                    <li key={item}>
-                      <Link href="/about-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
               {/* Become Certified Column */}
               <div>
-                <h3 className="text-gray-900 mb-4 font-bold text-base">
+                <h3 className="text-gray-900 mb-3 font-bold text-base">
                   Become Certified
                 </h3>
                 <ul className="space-y-2">
-                  {['Process', 'Benefits', 'Get started'].map((item) => (
-                    <li key={item}>
-                      <Link
-                        href="/become-clean-certified"
-                        className="text-gray-600 hover:text-[#16464C] text-sm transition-colors"
-                      >
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
+                  <li>
+                    <Link href="/become-clean-certified" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                      Process
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/about-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                      Benefits
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/become-clean-certified" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
+                      Get started
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
               {/* Company Column */}
               <div>
-                <h3 className="text-gray-900 mb-4 font-bold text-base">
+                <h3 className="text-gray-900 mb-3 font-bold text-base">
                   Company
                 </h3>
                 <ul className="space-y-2">
@@ -74,14 +62,8 @@ export default function Footer() {
                       Contact us
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/about-us" className="text-gray-600 hover:text-[#16464C] text-sm transition-colors">
-                      History
-                    </Link>
-                  </li>
                 </ul>
               </div>
-
             </div>
           </div>
         </div>
@@ -98,17 +80,45 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               <span className="text-gray-600 text-sm">Follow us:</span>
               <div className="flex gap-3">
-                {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
+                {[
+                  {
+                    name: "Instagram",
+                    icon: "/images/branding/insta.png",
+                    href: "https://instagram.com/CL3ANWORLD",
+                  },
+                  {
+                    name: "X",
+                    icon: "/images/branding/x.png",
+                    href: "https://x.com/CL3ANWORLD",
+                  },
+                  {
+                    name: "Substack",
+                    icon: "/images/branding/substack.png",
+                    href: "https://substack.com/@cl3an",
+                  },
+                  {
+                    name: "Minds",
+                    icon: "/images/branding/minds.png",
+                    href: "https://www.minds.com/cl3an/",
+                  },
+                ].map(({name, icon, href}) => (
                   <Link
-                    key={i}
-                    href="#"
+                    key={name}
+                    href={href}
                     className="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#16464C] flex items-center justify-center transition-colors group"
                   >
-                    <Icon className="w-5 h-5 text-gray-600 group-hover:text-white" />
+                  <img
+                    src={icon}
+                    alt="CL3AN Logo"
+                    className="w-auto h-5 text-gray-600 group-hover:text-white"
+                  />
                   </Link>
                 ))}
               </div>
             </div>
+          </div>
+          <div className="text-gray-600 font-bold text-sm mt-5">
+            Copyright © 2026 CL3AN. All rights reserved.
           </div>
         </div>
       </div>

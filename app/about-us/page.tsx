@@ -10,24 +10,24 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default function Page() {
 
-  const [beaconsCount, setBeaconsCount] = useState<number>(0);
+  const [figuresCount, setFiguresCount] = useState<number>(0);
   const [companyCount, setCompanyCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const getBeaconsCount = async () => {
+    const getFiguresCount = async () => {
       setLoading(true);
       try {
         const query = supabase
-          .from('beacons')
+          .from('figures')
           .select('*', { count: 'exact' })
 
         const { data, error } = await query
 
         if (error) throw error
-        setBeaconsCount(data?.length || 0);
+        setFiguresCount(data?.length || 0);
       } catch (err: any) {
-        console.error('Failed to fetch beacons', err)
+        console.error('Failed to fetch figures', err)
       }
       setLoading(false);
     };
@@ -52,7 +52,7 @@ export default function Page() {
       }
     };
 
-    getBeaconsCount();
+    getFiguresCount();
     getCompanyCount();
   }, []);
 
@@ -61,38 +61,62 @@ export default function Page() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Mission Section */}
         <section className="mb-16">
-          <div className="grid md:grid-cols-2 gap-30 items-center">
-            <div>
-              <h1 className="text-[#16464C] mb-4" style={{ fontSize: '55px', fontWeight: 700, lineHeight: 1 }}>
+          <div className="flex flex-col md:flex-row gap-12">
+
+            {/* LEFT: TEXT */}
+            <div className="md:w-3/4">
+              <h1 className="text-[#16464C] mb-4 text-[55px] font-bold leading-tight">
                 Guided by Ideals,
-                  </h1>
-              <h1 className="text-[#16464C] mb-16" style={{ fontSize: '55px', fontWeight: 700, lineHeight: 1 }}>
+      </h1>
+              <h1 className="text-[#16464C] mb-12 text-[55px] font-bold leading-tight">
                 built for change.
-                  </h1>
-              <p className="text-[#16464C] mb-4" style={{ fontSize: '25px', fontWeight: 400, lineHeight: 2 }}>
-                CLEAN connects conscious consumers with
-                  </p>
-              <p className="text-[#16464C] mb-4" style={{ fontSize: '25px', fontWeight: 400, lineHeight: 2 }}>
-                CERTIFIED sources, we can trust-guided by shared
-                  </p>
-              <p className="text-[#16464C]" style={{ fontSize: '25px', fontWeight: 400, lineHeight: 2 }}>
-                IDEALS for a better world.
-                  </p>
+      </h1>
+
+              <div className="space-y-6 text-[#16464C] text-[22px] leading-relaxed">
+                <p>
+                  CL3AN is a nonprofit certification that connects consumers to sources aligned with the ideals of a better world.
+                </p>
+                <p>
+                  A source bearing the CL3AN certification is one you can trust — safe to support, and guided by values that prioritize people, integrity, and long-term impact.
+                </p>
+                <p>
+                  We carefully research, vet, and verify every source we recognize. Our focus is simple: to ensure they operate free from harmful practices, short-term greed, and influences that do not serve the greater good.
+                </p>
+                <p>
+                  CL3AN exists to make conscious consumption effortless.
+                </p>
+                <div className="flex gap-3">
+                  <p>
+                    Find our badge and consume with peace-of-mind.</p>
+                  <img
+                    src="/images/branding/Logotipo-Cl3an-03.png"
+                    alt="CL3AN"
+                    className="h-10 object-contain"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-              <div className="space-y-6">
-                <Link href="/directory">
-                  <div className="text-[#16464C] mb-2" style={{ fontSize: '48px', fontWeight: 700 }}>{companyCount}+</div>
-                  <div className="text-[#16464C]" style={{ fontSize: '16px' }}>Certified Sources</div>
-                </Link>
-                <Link href="#">
-                  <div className="text-[#16464C] mb-2" style={{ fontSize: '48px', fontWeight: 700 }}>25</div>
-                  <div className="text-[#16464C]" style={{ fontSize: '16px' }}>Certified Causes</div>
-                </Link>
-                <Link href="/beacons">
-                  <div className="text-[#16464C] mb-2" style={{ fontSize: '48px', fontWeight: 700 }}>{beaconsCount}+</div>
-                  <div className="text-[#16464C]" style={{ fontSize: '16px' }}>Beacons</div>
-                </Link>
+
+            {/* RIGHT: STATS */}
+            <div className="md:w-1/4 flex md:items-center">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 sticky top-24 w-full">
+                <div className="space-y-8">
+
+                  <Link href="/directory" className="block">
+                    <div className="text-[#16464C] text-4xl font-bold">{companyCount}+</div>
+                    <div className="text-gray-600 text-sm">Certified Sources</div>
+                  </Link>
+
+                  <Link href="#" className="block">
+                    <div className="text-[#16464C] text-4xl font-bold">25</div>
+                    <div className="text-gray-600 text-sm">Certified Causes</div>
+                  </Link>
+
+                  <Link href="/figures" className="block">
+                    <div className="text-[#16464C] text-4xl font-bold">{figuresCount}+</div>
+                    <div className="text-gray-600 text-sm">Figures</div>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

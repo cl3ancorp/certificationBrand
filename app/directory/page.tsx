@@ -62,16 +62,31 @@ export default function Directory() {
     return () => clearTimeout(timer);
   }, []);
 
+  const matchesSearch = (company, query) => {
+    if (!query?.trim()) return true;
+  
+    const q = query.toLowerCase().trim();
+  
+    return (
+      company?.name?.toLowerCase().includes(q) ||
+      company?.description?.toLowerCase().includes(q) ||
+      company?.industry?.toLowerCase().includes(q) ||
+      company?.sector?.toLowerCase().includes(q) ||
+      company?.website?.toLowerCase().includes(q) ||
+      company?.operates_in?.some((country) =>
+        country?.toLowerCase().includes(q)
+      )
+    );
+  };
+
   // Filter and sort companies
   useEffect(() => {
     let result = companies;
 
-    // Filter by search query
+    // Filter
     if (searchQuery.trim()) {
-      result = result.filter(
-        (company) =>
-          company?.name?.toLowerCase().includes(searchQuery?.toLowerCase()) ||
-          company?.description?.toLowerCase().includes(searchQuery?.toLowerCase())
+      result = result.filter((company) =>
+        matchesSearch(company, searchQuery)
       );
     }
 
@@ -83,9 +98,9 @@ export default function Directory() {
         case 'z-a':
           return b?.name?.localeCompare(a?.name);
         case 'newest':
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
         case 'oldest':
-            return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
         default:
           return 0;
       }

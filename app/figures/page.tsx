@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '../../components/ui/button';
 import Link from 'next/link';
 
-interface Beacon {
+interface Figure {
     id: string;
     name: string;
     company: string;
@@ -20,8 +20,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-export default function Beacons() {
-    const [beaconsList, setBeacons] = useState<Beacon[]>([]);
+export default function Figures() {
+    const [figuresList, setFigures] = useState<Figure[]>([]);
     const [loading, setLoading] = useState<boolean>(true)
     const [isSending, setIsSending] = useState(false);
     const [formData, setFormData] = useState({
@@ -32,23 +32,23 @@ export default function Beacons() {
     });
 
     useEffect(() => {
-        const fetchBeacons = async () => {
+        const fetchFigures = async () => {
             setLoading(true);
             try {
                 const query = supabase
-                    .from('beacons')
+                    .from('figures')
                     .select('*', { count: 'exact' })
 
                 const { data, error } = await query
 
                 if (error) throw error
-                setBeacons(data);
+                setFigures(data);
             } catch (err: any) {
-                console.error('Failed to fetch beacons', err)
+                console.error('Failed to fetch figures', err)
             }
             setLoading(false);
         };
-        fetchBeacons();
+        fetchFigures();
     }, []);
 
     const handleSubmit = async () => {
@@ -65,7 +65,7 @@ export default function Beacons() {
         setIsSending(true);
 
         try {
-            const response = await fetch('/api/email-recommend-beacon', {
+            const response = await fetch('/api/email-recommend-figure', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,52 +109,63 @@ export default function Beacons() {
             {/* Hero Section */}
             <div className="bg-[#16464C] text-white py-20">
                 <div className="max-w-7xl mx-auto px-8 text-center">
-                    <h1 className="mb-6" style={{ fontSize: '48px', fontWeight: 700, letterSpacing: '0.02em' }}>
-                        B3ACONS by CL3AN
-          </h1>
-                    <p className="max-w-3xl mx-auto" style={{ fontSize: '18px', lineHeight: '1.6' }}>
-                        Beacons are individuals who embody clean ideals through their actions,
-                        contributions and legacy. They are symbols that showcase what CL3AN stands for.
-          </p>
+                    <h1
+                        className="mb-6 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3"
+                        style={{ fontSize: '48px', fontWeight: 700, letterSpacing: '0.02em' }}
+                    >
+                        <span>FIGUR3S of</span>
+
+                        <img
+                            src="/images/branding/Logotipo-Cl3an-30.png"
+                            alt="CL3AN"
+                            className="h-10 object-contain"
+                        />
+                    </h1>
+                    <p
+                        className="max-w-3xl mx-auto"
+                        style={{ fontSize: '18px', lineHeight: '1.6' }}
+                    >
+                        Self-less Individuals that represent the Ideals of CL3AN
+</p>
                 </div>
             </div>
 
-            {/* Beacons Grid */}
+            {/* Figures Grid */}
             <div className="max-w-7xl mx-auto px-8 py-16">
                 {/* Loading State */}
                 {loading && (
                     <div className="text-center py-12">
                         <p className="text-gray-500" style={{ fontSize: '16px' }}>
-                            Fetching all our B3ACONS...
+                            Fetching all our FIGUR3S...
                 </p>
                     </div>
                 )}
                 <div className="grid md:grid-cols-3 gap-8">
-                    {!loading && beaconsList.map((beacon) => (
+                    {!loading && figuresList.map((figure) => (
                         <Link
-                            href={beacon.website || '#'}
+                            href={figure.website || '#'}
                             target="_blank"
                             rel="noopener noreferrer"
-                            key={beacon.id}
+                            key={figure.id}
                             className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                         >
-                            {/* BEACON CARD */}
+                            {/* FIGURE CARD */}
                             <div className="relative h-64 bg-gray-200">
                                 <img
-                                    src={beacon.img_url}
-                                    alt={beacon.name}
+                                    src={figure.img_url}
+                                    alt={figure.name}
                                     className="w-full h-full object-cover"
                                 />
                             </div>
                             <div className="p-6">
                                 <h3 className="text-gray-900 mb-1" style={{ fontSize: '20px', fontWeight: 700 }}>
-                                    {beacon.name}
+                                    {figure.name}
                                 </h3>
                                 <div className="text-gray-600 mb-3" style={{ fontSize: '14px', fontWeight: 500 }}>
-                                    {beacon.title} · {beacon.company}
+                                    {figure.title} · {figure.company}
                                 </div>
                                 <p className="text-gray-700" style={{ fontSize: '14px', lineHeight: '1.6' }}>
-                                    {beacon.description}
+                                    {figure.description}
                                 </p>
                             </div>
                         </Link>
@@ -166,7 +177,7 @@ export default function Beacons() {
             <div className="bg-white py-16">
                 <div className="max-w-3xl mx-auto px-8">
                     <h2 className="text-gray-900 text-center mb-2" style={{ fontSize: '32px', fontWeight: 700 }}>
-                        Missing a someone? Recommend a Beacon!
+                        Missing a someone? Recommend a Figure!
                     </h2>
 
                     <form onSubmit={handleSubmit} className="mt-12 space-y-6">

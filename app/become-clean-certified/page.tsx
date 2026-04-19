@@ -98,10 +98,7 @@ export default function BecomeCleanCertified() {
         <div className="flex justify-center mb-4">
           <Image height={150} width={150} alt={logoAlt} src={logoSrc} />
         </div>
-        <h1 className="text-4xl font-bold text-white mb-4">Become CL3AN Certified</h1>
-        <p className="text-lg text-white max-w-2xl mx-auto">
-          Join our network of certified sources
-          </p>
+        <h1 className="text-4xl font-bold text-white mb-4">Join our network of Certified Sources</h1>
       </div>
 
       {/* Success Alert */}
