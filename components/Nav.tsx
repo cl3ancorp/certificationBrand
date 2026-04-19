@@ -16,7 +16,7 @@ export default function Navigation() {
     { href: "/become-clean-certified", label: "Pathway", hasLogo: true },
   ];
 
-  const isActive = (href) => pathname === href;
+  const isActive = (href: string): boolean => pathname === href;
 
   return (
     <nav className="bg-white border-b border-gray-200 relative z-50">
