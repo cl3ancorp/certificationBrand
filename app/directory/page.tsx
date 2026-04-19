@@ -62,7 +62,17 @@ export default function Directory() {
     return () => clearTimeout(timer);
   }, []);
 
-  const matchesSearch = (company, query) => {
+  const matchesSearch = (
+    company: {
+      name?: string;
+      description?: string;
+      industry?: string;
+      sector?: string;
+      website?: string;
+      operates_in?: string[];
+    },
+    query: string
+  ) => {
     if (!query?.trim()) return true;
   
     const q = query.toLowerCase().trim();
