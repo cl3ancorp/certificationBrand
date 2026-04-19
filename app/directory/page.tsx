@@ -8,14 +8,14 @@ import Image from 'next/image';
 import CompanyCard from '../companies/CompanyCard'
 
 interface Company {
-    id: number
-    created_at: string
-    name: string
-    description: string | null
-    size: string | null
-    industry: string | null
-    operates_in: string[] | null
-    img_url: string | null
+  id: number;
+  created_at: string;
+  name: string;
+  description: string | null;
+  size: string | null;
+  industry: string | null;
+  operates_in: string[] | null;
+  img_url: string | null;
 }
   
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -62,29 +62,16 @@ export default function Directory() {
     return () => clearTimeout(timer);
   }, []);
 
-  const matchesSearch = (
-    company: {
-      name?: string;
-      description?: string;
-      industry?: string;
-      sector?: string;
-      website?: string;
-      operates_in?: string[];
-    },
-    query: string
-  ) => {
-    if (!query?.trim()) return true;
-  
-    const q = query.toLowerCase().trim();
+  const matchesSearch = (company: Company, query: string) => {
+    const q = query?.toLowerCase().trim();
+    if (!q) return true;
   
     return (
-      company?.name?.toLowerCase().includes(q) ||
-      company?.description?.toLowerCase().includes(q) ||
-      company?.industry?.toLowerCase().includes(q) ||
-      company?.sector?.toLowerCase().includes(q) ||
-      company?.website?.toLowerCase().includes(q) ||
-      company?.operates_in?.some((country) =>
-        country?.toLowerCase().includes(q)
+      company.name?.toLowerCase().includes(q) ||
+      company.description?.toLowerCase().includes(q) ||
+      company.industry?.toLowerCase().includes(q) ||
+      company.operates_in?.some((country) =>
+        country.toLowerCase().includes(q)
       )
     );
   };
