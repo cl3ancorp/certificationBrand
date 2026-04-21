@@ -2,90 +2,99 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
-const navList = [
-    // { title: "Find a Clean Corp", url: "/companies" },
-    { title: "Become Clean Certified", url: "/become-clean-certified" },
-    { title: "About Us", url: "/about-us" },
-    { title: "Contact Us", url: "/contact-us" },
-];
+export default function Navigation() {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
-export default function Nav() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navLinks = [
+    { href: "/about-us", label: "About Us", hasLogo: false },
+    { href: "/figures", label: "Figures", hasLogo: true },
+    { href: "/directory", label: "Sources", hasLogo: true },
+    { href: "/become-clean-certified", label: "Pathway", hasLogo: true },
+  ];
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  const isActive = (href: string): boolean => pathname === href;
 
-    return (
-        <div className="sticky top-0 bg-white shadow shadow-gray-200 z-50">
-            <div className="mx-auto container px-4 flex">
-                <div className="flex max-w-xl items-center">
-                    {/* Logo */}
-                    <Link href="/" className="mr-4">
-                        <img className="w-auto h-13" src={"/images/branding/Logotipo-Cl3an-12.png"} alt="Clean Corp Logo" />
-                    </Link>
+  return (
+    <nav className="bg-white border-b border-gray-200 relative z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                    {/* Navigation and Actions Container */}
-                    <div className="flex items-center justify-between flex-1">
-                        {/* Desktop Navigation */}
-                        <nav className="hidden lg:flex items-center space-x-4">
-                            {navList.map((item, index) => (
-                                <Link
-                                    key={index}
-                                    href={item.url}
-                                    className="py-6 font-bold text-sm hover:text-gray-600 transition-colors"
-                                >
-                                    {item.title}
-                                </Link>
-                            ))}
-                        </nav>
+        {/* MAIN BAR, justify-between */}
+        <div className="flex items-center h-20 justify-between md:justify-start gap-4 md:gap-8">
 
-                    </div>
-                </div>
+          {/* Logo */}
+          <Link href="/" className="flex items-center shrink-0">
+            <img
+              src="/images/branding/cl3an_home_logo.png"
+              alt="CL3AN Logo"
+              className="h-30 w-auto object-contain"
+            />
+          </Link>
 
-                <Link href="/companies" className="mr-4 ml-6">
-                    <div className="flex flex-col">
-                        <img className="w-auto h-10" src={"/images/branding/Logotipo-Cl3an-28.png"} alt="Clean Corp Logo" />
-                        <span className="ml-3 text-2xl font-semibold">Directory</span>
-                    </div>
-                </Link>
-                {/* Invisible spacer to balance the left side */}
-                <div className="w-[10px]"></div>
+          {/* DESKTOP NAV */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex flex-col items-center gap-1 transition-colors ${
+                  isActive(link.href)
+                    ? "text-[#2d5f5d]"
+                    : "text-gray-900 hover:text-[#2d5f5d]"
+                }`}
+              >
+                {link.hasLogo && (
+                  <img
+                    src="/images/branding/Logotipo-Cl3an-28.png"
+                    alt="CL3AN"
+                    className="h-4"
+                  />
+                )}
+                <span className="text-sm font-medium">{link.label}</span>
+              </Link>
+            ))}
+          </div>
 
-                <div className="flex grow justify-end items-center space-x-4">
-                    {/* Empty div for mobile to push burger menu to the right */}
-                    <div className="lg:hidden"></div>
+          {/* MOBILE BUTTON */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-gray-900"
+            aria-label="Toggle Menu"
+          >
+            {open ? <X size={28} /> : <Menu size={28} />}
+          </button>
 
-                    {/* Mobile Burger Menu Button */}
-                    <button
-                        className="lg:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
-                        onClick={toggleMenu}
-                        aria-label="Toggle menu"
-                    >
-                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                        <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu */}
-            <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-                <div className="px-4 py-4 space-y-2">
-                    {navList.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.url}
-                            className="block py-3 font-bold text-sm hover:text-gray-600 transition-colors border-b border-gray-100 last:border-b-0"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            {item.title}
-                        </Link>
-                    ))}
-
-                </div>
-            </div>
         </div>
-    );
+
+        {/* MOBILE MENU OVERLAY */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="flex flex-col gap-6 py-6 border-t border-gray-100">
+
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={`text-lg font-medium transition-colors ${
+                  isActive(link.href)
+                    ? "text-[#2d5f5d]"
+                    : "text-gray-900"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }

@@ -1,98 +1,175 @@
-// data/cleanCorpData.js
-const cleanCorpData = {
-  header: {
-    subtitle: "About Clean Corp Certification",
-    title: "Measuring a company's entire social and environmental impact.",
-    heroImage: {
-      src: "/images/bustling-office-space.jpg",
-      alt: "Clean Corp Logo"
-    }
-  },
-  content: {
-    mainDescription:
-      "Clean Corp Certification is the gold standard for recognizing companies that operate with integrity, transparency, and a commitment to people and planet. Our certification signifies that a business meets rigorous, independent standards of social and environmental responsibility—across everything from ethical sourcing and fair labor to carbon impact and community engagement. To become Clean Corp Certified, a company must:",
-    requirements: [
-      {
-        title: "Demonstrate Verified Impact",
-        description:
-          "by achieving a high score on the Clean Impact Assessment, which evaluates a company’s environmental footprint, labor practices, supply chain ethics, community engagement, and governance. Companies must also pass a risk and compliance review."
-      },
-      {
-        title: "Make a Legal & Structural Commitment",
-        description:
-          "by updating their governance structure to be accountable to all stakeholders—employees, communities, and the environment—not just shareholders."
-      },
-      {
-        title: "Commit to Transparency",
-        description:
-          "by maintaining a public Clean Profile where key performance metrics and impact scores are openly available to customers, partners, and investors."
-      }
-    ],
-    benefitsText:
-      "Certified Clean Companies stand at the forefront of a global shift toward ethical and sustainable business. They build trust with conscious consumers and partners, attract mission aligned talent and investors, and gain long term resilience through a culture of continuous improvement. Certification is renewed every three years through a full impact review.",
-    processText:
-      "Clean Corp Certification takes a holistic view of business ethics not just environmental metrics or labor practices in isolation. The process is rigorous and tailored to company size, industry, and location. It includes documentation of your business model, governance, and work processes, with public feedback review and potential site audits. Ongoing certification ensures continuous commitment.",
-    faqLinkText: "FAQs"
-  }
-};
+"use client"
+
+import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default function Page() {
-    const { header, content } = cleanCorpData;
-    
-    return (
-        <div className=" bg-white">
-            {/* Header Section */}
-            <div className="mx-auto px-4 py-8">
-                <div className="max-w-7xl mx-auto ">
-                    <h2 className="text-lg font-bold text-gray-900 mb-2 uppercase">
-                        {header.subtitle}
-                    </h2>
-                    <h1 className="mb-7 text-3xl font-bold text-gray-900 leading-tight">
-                        {header.title}
-                    </h1>
+
+  const [figuresCount, setFiguresCount] = useState<number>(0);
+  const [companyCount, setCompanyCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getFiguresCount = async () => {
+      setLoading(true);
+      try {
+        const query = supabase
+          .from('figures')
+          .select('*', { count: 'exact' })
+
+        const { data, error } = await query
+
+        if (error) throw error
+        setFiguresCount(data?.length || 0);
+      } catch (err: any) {
+        console.error('Failed to fetch figures', err)
+      }
+      setLoading(false);
+    };
+
+    const getCompanyCount = async () => {
+      try {
+        setLoading(true)
+
+        const query = supabase
+          .from('certified-companies')
+          .select('*', { count: 'exact' })
+
+        const { data, error } = await query
+
+        if (error) throw error
+
+        setCompanyCount(data?.length || 0)
+      } catch (err: any) {
+        console.error('Failed to fetch companies', err)
+      } finally {
+        setLoading(false)
+      }
+    };
+
+    getFiguresCount();
+    getCompanyCount();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Mission Section */}
+        <section className="mb-16">
+          <div className="flex flex-col md:flex-row gap-12">
+
+            {/* LEFT: TEXT */}
+            <div className="md:w-3/4">
+              <h1 className="text-[#16464C] mb-4 text-[55px] font-bold leading-tight">
+                Guided by Ideals,
+      </h1>
+              <h1 className="text-[#16464C] mb-12 text-[55px] font-bold leading-tight">
+                built for change.
+      </h1>
+
+              <div className="space-y-6 text-[#16464C] text-[22px] leading-relaxed">
+                <p>
+                  CL3AN is a nonprofit certification that connects consumers to sources aligned with the ideals of a better world.
+                </p>
+                <p>
+                  A source bearing the CL3AN certification is one you can trust — safe to support, and guided by values that prioritize people, integrity, and long-term impact.
+                </p>
+                <p>
+                  We carefully research, vet, and verify every source we recognize. Our focus is simple: to ensure they operate free from harmful practices, short-term greed, and influences that do not serve the greater good.
+                </p>
+                <p>
+                  CL3AN exists to make conscious consumption effortless.
+                </p>
+                <div className="flex gap-3">
+                  <p>
+                    Find our badge and consume with peace-of-mind.</p>
+                  <img
+                    src="/images/branding/Logotipo-Cl3an-03.png"
+                    alt="CL3AN"
+                    className="h-10 object-contain"
+                  />
                 </div>
-                <div className="max-w-[90rem] mx-auto  h-[35rem] rounded-lg overflow-hidden">
-                    <img
-                        src={header.heroImage.src}
-                        alt={header.heroImage.alt}
-                        className="w-full h-full object-cover"
-                    />
-                </div>
+              </div>
             </div>
 
-            {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-4 py-12 bg-white">
-                {/* Main Description */}
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    {content.mainDescription}
-                </p>
+            {/* RIGHT: STATS */}
+            <div className="md:w-1/4 flex md:items-center">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 sticky top-24 w-full">
+                <div className="space-y-8">
 
-                {/* Requirements List */}
-                <ul className="space-y-4 mb-8">
-                    {content.requirements.map((requirement, index) => (
-                        <li key={index} className="flex items-start">
-                            <span className="flex-shrink-0 w-2 h-2 bg-black rounded-full mt-3 mr-4"></span>
-                            <div>
-                                <span className="font-semibold text-gray-900">
-                                    {requirement.title}
-                                </span>
-                                <span className="text-gray-700"> {requirement.description}</span>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                  <Link href="/directory" className="block">
+                    <div className="text-[#16464C] text-4xl font-bold">{companyCount}+</div>
+                    <div className="text-gray-600 text-sm">Certified Sources</div>
+                  </Link>
 
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    {content.benefitsText}
-                </p>
+                  <Link href="#" className="block">
+                    <div className="text-[#16464C] text-4xl font-bold">25</div>
+                    <div className="text-gray-600 text-sm">Certified Causes</div>
+                  </Link>
 
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    {content.processText}{" "}
-                    <span className="text-blue-600 underline cursor-pointer">
-                        {content.faqLinkText}
-                    </span>.
-                </p>
-            </main>
+                  <Link href="/figures" className="block">
+                    <div className="text-[#16464C] text-4xl font-bold">{figuresCount}+</div>
+                    <div className="text-gray-600 text-sm">Figures</div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Why It Matters */}
+      <div className="bg-[#16464C]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <section className="mb-16">
+            <h2 className="text-white mb-8 text-center" style={{ fontSize: '36px', fontWeight: 600 }}>
+              Why Clean Certification Matters
+                </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                <div className="w-16 h-16 bg-[#16464C] rounded-full flex items-center justify-center mb-4">
+                  <span className="text-white text-2xl">🌱</span>
+                </div>
+                <h3 className="text-[#16464C] mb-3" style={{ fontSize: '20px', fontWeight: 600 }}>
+                  Environmental Impact
+                    </h3>
+                <p className="text-[#16464C]" style={{ fontSize: '15px', lineHeight: 1.6 }}>
+                  Clean businesses reduce pollution, minimize waste, and protect natural resources for future generations.
+                    </p>
+              </div>
+
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                <div className="w-16 h-16 bg-[#16464C] rounded-full flex items-center justify-center mb-4">
+                  <span className="text-white text-2xl">❤️</span>
+                </div>
+                <h3 className="text-[#16464C] mb-3" style={{ fontSize: '20px', fontWeight: 600 }}>
+                  Health & Safety
+                    </h3>
+                <p className="text-[#16464C]" style={{ fontSize: '15px', lineHeight: 1.6 }}>
+                  High cleanliness standards protect the health and wellbeing of customers, employees, and communities.
+                    </p>
+              </div>
+
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+                <div className="w-16 h-16 bg-[#16464C] rounded-full flex items-center justify-center mb-4">
+                  <span className="text-white text-2xl">🤝</span>
+                </div>
+                <h3 className="text-[#16464C] mb-3" style={{ fontSize: '20px', fontWeight: 600 }}>
+                  Consumer Trust
+                    </h3>
+                <p className="text-[#16464C]" style={{ fontSize: '15px', lineHeight: 1.6 }}>
+                  Certification builds confidence and helps consumers make informed decisions about where to spend their money.
+                    </p>
+              </div>
+            </div>
+          </section>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
